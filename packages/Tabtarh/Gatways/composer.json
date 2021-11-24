@@ -1,0 +1,25 @@
+{
+    "name": "tabtarh/gatways",
+    "authors": [
+        {
+            "name": "amirfrd",
+            "email": "amirfaridvand@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Tabtarh\\Gatways\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tabtarh\\Gatways\\GatwaysServiceProvider"
+            ],
+            "aliases": {
+                "Gateway": "Tabtarh\\Gatways\\Gateway"
+            }
+        }
+    }
+}

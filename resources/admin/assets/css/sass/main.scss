@@ -1,0 +1,600 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700');
+@import './_01_mixins.scss';
+@import './_02_variables';
+@import './_03_core.scss';
+@import './_04_plugins.scss';
+@import './_05_views.scss';
+
+/** your custom css code **/
+/*
+html {
+    background-color: $theme-color-1 !important;
+}
+*/
+
+body {
+    font-family: 'iranyekan', Nunito, serif !important;
+}
+
+p {
+    font-family: 'iranyekan', Nunito, serif !important;
+}
+
+.form-group .DatePicker {
+    display: block;
+}
+
+h1{
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.product-name-box{
+    display: flex;
+    align-content: center;
+
+    .img-wrapper{
+        img.product-image{
+            width: 100px;
+            object-fit: contain;
+        }
+    }
+    .name-wrapper{
+        padding: 0.6em 1em;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+
+        .product-title{
+            width: 300px;
+            font-size: 0.8em;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+    }
+}
+
+.product-category{
+    font-size: 0.8em;
+    font-weight: 400;
+}
+.product-price{
+    font-size: 0.8em;
+    font-weight: 400;
+}
+.product-quantity{
+    font-size: 0.8em;
+    font-weight: 400;
+}
+.product-variations{
+    font-size: 0.7em;
+    font-weight: 400;
+}
+.product-register{
+    font-size: 0.7em;
+    font-weight: 400;
+    padding: 0;
+    list-style: none;
+
+    li{
+        margin-bottom: 0.8em;
+    }
+    .list-value{
+        font-weight: 600;
+    }
+}
+
+#cardtitles {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+#seccondCardTitle {
+    font-size: 1rem;
+}
+
+.search-sm input {
+    padding: 1.2vh;
+    margin-top: 0.3vh;
+}
+
+.rtl .search-sm::after {
+    top: 9px !important;
+}
+
+.MyDropDown {
+    margin-bottom: 2vh !important;
+}
+
+.MainBlog {
+    background: #f8f8f8;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.InnerMainBlog {
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.MainCard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    margin-bottom: 1.875rem;
+}
+
+.MainCardBody {
+    padding: 1.5rem;
+    line-height: 2;
+    flex: 1 1 auto;
+}
+
+.CardHeader {
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+}
+
+.RightCard {
+    margin-bottom: 1rem !important;
+    float: right !important;
+}
+
+.LeftCard {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 1rem;
+    float: left !important;
+}
+
+.CardRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.FirstItem {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 1rem !important;
+}
+
+.SeccondItem {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 1rem !important;
+}
+
+.FirstItem>label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-weight: 600 !important;
+}
+
+.SeccondItem>label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-weight: 600 !important;
+}
+
+.FirstItem>input {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    height: calc(1.5em + .75rem + 3px);
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.SeccondItem>input {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    height: calc(1.5em + .75rem + 3px);
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.Editor {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 1rem !important;
+}
+
+.registrar>p {
+    margin-bottom: 0 !important;
+}
+
+#special {
+    margin: 1vh 0 !important;
+}
+
+#secspecial {
+    display: flex;
+    align-items: center;
+}
+
+.MyButton {
+    margin-bottom: 1rem;
+    width: 8vw;
+    background-color: #f8f8f8;
+    color: black;
+    border-color: #bebaba;
+}
+
+.MyButton:hover {
+    background-color: #f8f8f8 !important;
+    color: black !important;
+    border-color: #bebaba !important;
+}
+
+.MyCard {
+    padding: 0 !important;
+    width: 8vw !important;
+    background-color: #f8f8f8 !important;
+}
+
+.collapse>.card {
+    padding: 0 !important;
+    width: 8vw !important;
+    background-color: #f8f8f8 !important;
+}
+
+.MyCard>ul>li {
+    list-style-type: circle !important;
+}
+
+.MyTitle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem !important;
+    font-weight: 600 !important;
+}
+
+.maincollapse {
+    background-color:#fff;
+    height: 6vh !important;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.MyDiv {
+    background-color:#fff;
+}
+
+.diffrentColxx {
+    padding: 0 !important;
+    border-radius:0 !important;
+}
+
+.diffrentCard {
+    border-radius: 0 !important;
+}
+
+.Bold {
+    font-size: 1rem !important;
+    font-weight: bold !important;
+}
+
+.form-check {
+    margin-top: 1.5vh !important;
+}
+
+.seccondDiv {
+    width: 100%;
+    height: auto;
+}
+
+.rmdp-container  {
+    padding: 0 1vh !important;
+}
+
+.collapsefooter {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 2vh !important;
+}
+
+.content>ul {
+    display: flex;
+    align-items:center;
+    padding-right: 0;
+    justify-content: space-between;
+    margin-bottom: 0;
+    border-bottom: 2px solid #6c757d;
+}
+
+.content>ul>li {
+    list-style-type: none;
+}
+
+#specialLi {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.activee {
+    background-color: #f2f2f2;
+    border-top: 2px solid #6c757d;
+    border-right: 2px solid #6c757d;
+    border-left: 2px solid #6c757d;
+    border-top-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    padding: 1.5vh;
+}
+
+#point {
+    cursor: pointer;
+}
+
+#point:hover {
+    color:black;
+}
+
+#modalP {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+#diffrentCollapse {
+    width: 100%;
+}
+
+.TabContent {
+    margin: 5vh 0 !important;
+}
+
+#diffrentField {
+    padding: 1vh 1vh !important;
+}
+
+.switch {
+    width: 50px;
+    height: 32px;
+    border: 1px solid #d5dbde;
+    padding: 0 8px;
+    background-color: #e9e9e9;
+    color: #6f6b6b;
+    transition: all 1s;
+    z-index: 99999;
+    position: relative;
+}
+
+.switch>Input {
+    z-index: 99;
+    position: absolute;
+}
+
+.FormGroupLabel {
+    padding: 0.5vh 0.5vh;
+}
+
+#myForm {
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+}
+
+.LeftDiv {
+    border: 1px solid gray;
+    border-radius:.5rem;
+    padding: 2vh !important;
+}
+
+.myHeader {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    background-color: #008ecc;
+    border-color: #008ecc;
+    padding-top: .5rem !important;
+    color: white !important;
+}
+
+.myBody {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0 !important;
+}
+
+.Cardinfo {
+    margin-top: 2vh;
+}
+
+.rtl .custom-control {
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 1.5vw;
+}
+
+#fullsize {
+    width: 100% !important;
+}
+
+#DatePicker {
+    margin-top: 3vh !important;
+}
+
+#name {
+    width: 32vw !important;
+    height: 5vh !important;
+    margin-right: -0.5vw !important;
+    border-radius:0 !important;
+}
+
+#redspan {
+    color: red;
+}
+
+// #shadow {
+//     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5) !important;
+//     border-radius: .3rem !important;
+// }
+
+// .css-yk16xz-control {
+//     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5) !important;
+//     border-radius: .3rem !important;
+// }
+
+// #exampleTime {
+//     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5) !important;
+//     border-radius: .3rem !important;
+// }
+
+// #name {
+//     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.5) !important;
+//     border-radius: .3rem !important;
+// }
+
+#sub {
+    background-color: #4bb1fa;
+    color: #ffff !important;
+    font-weight: bold !important;
+    height: 4.5vh !important;
+}
+
+#mainColor {
+    color: rgb(150, 143, 143)  !important;
+}
+
+#flexbutton {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.secGroup {
+    margin-top: 3vh !important;
+}
+
+.thirdGroup {
+    margin-top: 5vh !important;
+}
+
+#white {
+    color: rgb(41, 36, 36) !important;
+}
+
+#seccondm {
+    margin-right: 1vw !important;
+}
+
+#firstm {
+    margin-right: 1.2vw !important;
+}
+
+#labels {
+    font-size: 0.9rem !important;
+}
+
+#col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#specialData {
+    height: 4vh !important;
+    border-radius:0 !important;
+}
+
+#mainhead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vh !important;
+}
+
+#mainbody {
+    padding: 0 !important;
+}
+
+#setCollapse {
+    padding: 2vh !important;
+}
+
+#borderCard {
+    border: 1px solid #d7d7d7 !important;
+}
+
+#borderheader {
+    border: 1px solid #d7d7d7 !important;
+    padding-top: 1.5vh !important;
+    cursor: pointer !important;
+}
+
+#borderForm {
+    border: 1px solid #d9d9d9 !important;
+}
+
+#optionheader {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-top: 1vh !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #008ecc !important;
+}
+
+#optionheader>i {
+    cursor: pointer !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #008ecc !important;
+}
+
+#mainRow {
+    display: flex;
+    justify-content: center;
+}
+
+.flexForm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 32vw;
+    margin-right: .7vw;
+    margin-top: 3vh;
+}

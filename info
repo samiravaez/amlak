@@ -1,0 +1,1 @@
+page not found response when not authenticated (admin_log saving uses logged in user id)
