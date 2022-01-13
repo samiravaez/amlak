@@ -141,7 +141,7 @@ const CategoryList = ({ match, history }) => {
     parent: '0',
     term_description: '',
   });
-
+ 
   const onSubmit = () => {
 
   };

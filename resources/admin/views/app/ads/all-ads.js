@@ -220,16 +220,16 @@ const Allads = ({ match }) => {
       .catch(error => console.log(error));
   };
 
-  const fetchData = React.useCallback(async ({ pageSize, pageIndex }) => {
-    await axios.get(`${adminPathApi}/shop?page=${pageIndex + 1}&per_page=${pageSize}`)
-      .then((res) => {
-        setData(res.data.data)
-        setPageCount(res.data.last_page)
-        return res
-      })
-      .catch((error) => error)
-  }
-    , []);
+  // const fetchData = React.useCallback(async ({ pageSize, pageIndex }) => {
+  //   await axios.get(`${adminPathApi}/shop?page=${pageIndex + 1}&per_page=${pageSize}`)
+  //     .then((res) => {
+  //       setData(res.data.data)
+  //       setPageCount(res.data.last_page)
+  //       return res
+  //     })
+  //     .catch((error) => error)
+  // }
+  //   , []);
 
   const [modal, setModal] = useState(false);
 
@@ -260,7 +260,9 @@ const Allads = ({ match }) => {
           <Card className="mb-4">
             <CardBody>
               <CardTitle>آگهی ها</CardTitle>
-              <TableAjax columns={cols} data={data} fetchData={fetchData} loading={loading} pageCount={pageCount} />
+              <TableAjax columns={cols} data={data}
+              //  fetchData={fetchData} 
+               loading={loading} pageCount={pageCount} />
             </CardBody>
           </Card>
           <Modal isOpen={modal} toggle={toggle}>

@@ -5,6 +5,8 @@ import CrmList from "./crm-list";
 import MyCustomers from "./my-customers";
 import Inquiry from './inquiry';
 import AddCustomer from './add-customer';
+import Activities from './pages/Activities/Activities';
+import Customer from './pages/Customer/Customer';
 
 const Crms = ({ match }) => {
   return (
@@ -29,9 +31,21 @@ const Crms = ({ match }) => {
         path={`${match.url}/inquiry`}
         render={(props) => <Inquiry {...props} />}
       />
+     {/* *** */}
+     <Route
+        path={`${match.url}/activities`}
+        render={(props) => <Activities {...props} />}
+      />
+
+     {/* *** */}
         <Route
             path={`${match.url}/add-customer`}
             render={(props) => <AddCustomer {...props} />}
+        />
+     {/* *** */}
+        <Route
+            path={`${match.url}/customers`}
+            render={(props) => <Customer {...props} />}
         />
     </Suspense>
   )

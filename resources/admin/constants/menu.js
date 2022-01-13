@@ -77,28 +77,59 @@ const data = [
     permission: ['shops.create', 'shops.list', 'shops.edit'],
     subs: [
       {
-        label: 'menu.crm.list',
-        to: `${adminRoot}/crms/list`,
+        label: 'menu.crm.dashboard',
+        to: `${adminRoot}/crms/dashboard`,
         permission: ['shops.list'],
       },
       {
-        label: 'menu.crm.create',
-        to: `${adminRoot}/crms/create`,
+        label: 'menu.crm.customers',
+        to: `${adminRoot}/crms/customers`,
         permission: ['shops.create'],
       },
       {
-        label: 'menu.crm.listone',
-        to: `${adminRoot}/crms/my`,
-        permission: ['shops.list'],
-      },
-      {
-        label: 'menu.crm.Inquiry',
+        label: 'menu.crm.inquiry',
         to: `${adminRoot}/crms/inquiry`,
+        permission: ['shops.list'],
+      },
+      {
+        label: 'menu.crm.visits',
+        to: `${adminRoot}/crms/visits`,
         permission: ['shops.create'],
-      }
+      },
+      {
+        label: 'menu.crm.activities',
+        to: `${adminRoot}/crms/activities`,
+        permission: ['shops.create'],
+      },
+      {
+        label: 'menu.crm.salesOpportunity',
+        to: `${adminRoot}/crms/salesOpportunity`,
+        permission: ['shops.create'],
+      },
+      {
+        label: 'menu.crm.requestCampaign',
+        to: `${adminRoot}/crms/requestCampaign`,
+        permission: ['shops.create'],
+      },
+      {
+        label: 'menu.crm.documents',
+        to: `${adminRoot}/crms/documents`,
+        permission: ['shops.create'],
+      },
+      {
+        label: 'menu.crm.accounting',
+        to: `${adminRoot}/crms/accounting`,
+        permission: ['shops.create'],
+      },
+      {
+        label: 'menu.crm.crmSettings',
+        to: `${adminRoot}/crms/crmSettings`,
+        permission: ['shops.create'],
+      },
+
     ]
   },
-  {
+{
     id: 'ads',
     icon: 'iconsminds-digital-drawing',
     label: 'menu.pages',

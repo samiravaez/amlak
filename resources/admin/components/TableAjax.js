@@ -36,14 +36,14 @@ const TableAjax = ({columns, data, fetchData, loading, pageCount: controlledPage
   )
 
   // Listen for changes in pagination and use the state to fetch our new data
-  React.useEffect(() => {
-    fetchData({pageIndex, pageSize})
-  }, [fetchData, pageIndex, pageSize])
+  // React.useEffect(() => {
+  //   fetchData({pageIndex, pageSize})
+  // }, [fetchData, pageIndex, pageSize])
 
   // Render the UI for your table
   return (
     <>
-      {debug &&
+       {debug &&
       <pre>
         <code>
           {JSON.stringify(
@@ -112,8 +112,10 @@ const TableAjax = ({columns, data, fetchData, loading, pageCount: controlledPage
         onPageChange={(p) => gotoPage(p)}
         onPageSizeChange={(s) => setPageSize(s)}
         paginationMaxSize={pageCount}
-      />
+      /> 
+      
     </>
+
   )
 };
 
