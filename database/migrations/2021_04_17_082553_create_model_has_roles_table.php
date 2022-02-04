@@ -19,6 +19,9 @@ class CreateModelHasRolesTable extends Migration
             $table->unsignedBigInteger('model_id');
             $table->index(['model_id', 'model_type']);
             $table->primary(['role_id', 'model_id', 'model_type']);
+
+            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('RESTRICT')->onDelete('CASCADE');
+
         });
     }
 

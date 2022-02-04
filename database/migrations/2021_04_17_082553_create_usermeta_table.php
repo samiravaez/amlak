@@ -18,6 +18,9 @@ class CreateUsermetaTable extends Migration
             $table->unsignedBigInteger('user_id')->index('user_id');
             $table->string('meta_key', 256);
             $table->text('meta_value')->nullable();
+
+            $table->foreign('user_id', 'usermeta_ibfk_1')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

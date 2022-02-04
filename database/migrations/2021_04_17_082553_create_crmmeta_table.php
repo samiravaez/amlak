@@ -19,6 +19,9 @@ class CreateCrmmetaTable extends Migration
             $table->boolean('isJson');
             $table->string('meta_key', 256);
             $table->text('meta_value')->nullable();
+
+            $table->foreign('crm_id', 'crmmeta_ibfk_1')->references('id')->on('crm')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

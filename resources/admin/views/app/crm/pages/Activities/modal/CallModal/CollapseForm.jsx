@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Popover } from "antd";
-import { Field } from "formik";
+import {Field, Form} from "formik";
 import { FormGroup, Label } from "reactstrap";
 import Select from "react-select";
 import Reminder from "./Reminder";
 
-const CollapsForm = ({setFieldValue}) => {
+const CollapsForm = ({setFieldValue,values}) => {
     const [reminderBool, setReminderBool] = useState(false);
     const onChangeReminder = (e) => {
         setReminderBool(e.target.checked);
@@ -19,20 +19,20 @@ const CollapsForm = ({setFieldValue}) => {
                         <Select
                             id="shadow"
                             className="form-control"
-                            name="callDuration"
+                            name="call_side"
 
                             options={[
                                 { value: 0, label: "ورودی" },
                                 { value: 1, label: "خروجی" },
                             ]}
                             onChange={(e) =>
-                                setFieldValue("callDuration", e.value)
+                                setFieldValue("call_side", e.value)
                             }
                         />
                         {/* {errors.company_type && touched.company_type && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.company_type}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                     </FormGroup>
                 </div>
@@ -43,19 +43,34 @@ const CollapsForm = ({setFieldValue}) => {
                         افزودن یادآوری{" "}
                     </Checkbox>
                 </div>
-                {reminderBool && <Reminder />}
+                {reminderBool && <Reminder setFieldValue={setFieldValue} values={values}/>}
 
-                <div className="row">
-                    <label htmlFor="minutes" className="">
-                       مدت تماس
+
+                <div className="d-flex">
+                    <label htmlFor="periodOfTime" className="">
+                        مدت زمان :
                     </label>
+
                     <Field
                         id="shadow"
-                        className="form-control w-50"
+                        className="form-control w-25"
                         type="number"
-                        name={"minutes"}
+                        name="hours"
                     />
-                    <p> دقیقه</p>
+
+                    <label htmlFor="hours" className="">
+                        (ساعت)
+                    </label>
+
+                    <Field
+                        id="shadow"
+                        className="form-control w-25"
+                        type="number"
+                        name="minutes"
+                    />
+                    <label htmlFor="minutes" className="">
+                        (دقیقه)
+                    </label>
                 </div>
 
 
@@ -65,7 +80,7 @@ const CollapsForm = ({setFieldValue}) => {
                         <Select
                             id="shadow"
                             className="form-control"
-                            name="activityStatus"
+                            name="status"
                             options={[
                                 { value: 0, label: "باز" },
                                 { value: 1, label: "در حال انجام" },
@@ -73,41 +88,29 @@ const CollapsForm = ({setFieldValue}) => {
                                 { value: 3, label: "لغو" },
                             ]}
                             onChange={(e) =>
-                                setFieldValue("activityStatus", e.value)
+                                setFieldValue("status", e.value)
                             }
                         />
                         {/* {errors.company_type && touched.company_type && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.company_type}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                     </FormGroup>
-                </div>
 
-
-
-                <div className="row">
-                    <p> وضعیت تماس </p>
-                    <FormGroup className="w-50">
-                        <Select
+                    <div className="col">
+                        <label htmlFor="weight" className="">
+                            وزن فعالیت :
+                        </label>
+                        <Field
                             id="shadow"
                             className="form-control"
-                            name="callStatus"
-                            options={[
-                                { value: 0, label: "موفق" },
-                                { value: 1, label: "ناموفق" },
-                            ]}
-                            onChange={(e) =>
-                                setFieldValue("callStatus", e.value)
-                            }
+                            type="number"
+                            name={"weight"}
                         />
-                        {/* {errors.company_type && touched.company_type && (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.company_type}
-                                                            </div> 
-                                                        )}*/}
-                    </FormGroup>
+                    </div>
                 </div>
+
 
 
 
@@ -131,7 +134,7 @@ const CollapsForm = ({setFieldValue}) => {
                         {/* {errors.company_type && touched.company_type && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.company_type}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                     </FormGroup>
                 </div>
@@ -139,7 +142,7 @@ const CollapsForm = ({setFieldValue}) => {
 
                 <div className='row'>
             <label
-                htmlFor="expert"
+                htmlFor="creator_id"
                 className=""
             >
                 کارشناس :
@@ -147,16 +150,16 @@ const CollapsForm = ({setFieldValue}) => {
             <Popover
                 content={
                     <div>
-                
+
                     <Field
-                        name="expert"
+                        name="creator_id"
                         className="w-100 ms-5"
                     />
                <p>
                   لطفا تعداد دو کاراکتر یا بیشتر را وارد کنید
                </p>
-                </div>  
-                  
+                </div>
+
                 }
                 title="Title"
                 trigger="click"
@@ -164,7 +167,7 @@ const CollapsForm = ({setFieldValue}) => {
                 <Button className="w-25">
                    علی علیزاده
                 </Button>
-            </Popover> 
+            </Popover>
 
 
             </div>

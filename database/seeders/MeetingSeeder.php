@@ -17,9 +17,11 @@ class MeetingSeeder extends Seeder
         DB::table('meetings')->insert([
             [
                 'progress_rate' => 30,
+                'trash' => 0
             ],
             [
                 'progress_rate' => 70,
+                'trash' => 0
             ],
 
         ]);

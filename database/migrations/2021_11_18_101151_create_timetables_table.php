@@ -16,15 +16,17 @@ class CreateTimetablesTable extends Migration
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
             $table->integer('post_id')->nullable();
-            $table->string('day'); //0-6 => 0=saturday, 6=friday
+            $table->boolean('reminder')->default(0);
+            $table->timestamp('reminder_time')->nullable();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->text('description')->nullable();
             $table->integer('trash')->default(0);
             $table->timestamps();
 
-             $table->foreign('post_id')->references('postId')->on('posts');
-             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('post_id')->references('postId')->on('posts');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

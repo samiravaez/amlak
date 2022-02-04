@@ -36,7 +36,7 @@ const EmailModal = () => {
           ['clean'],
         ],
       };
-    
+
       const quillFormats = [
         'header',
         'bold',
@@ -51,10 +51,10 @@ const EmailModal = () => {
         'image',
       ];
 
-      
+
 
  const handleOk = () => {
-    setLoading(true) 
+    setLoading(true)
     setTimeout(() => {
         setLoading(false);
         setVisible(false);
@@ -85,19 +85,19 @@ const handleSub = async (value) => {
             width={1300}
             footer={<div></div>}
           >
-          
+
 
           <h1>My Form</h1>
                     <Formik
                         initialValues={{
                             to:"",
                             from: "",
-                            search: "",
+                            cc: "",
                             emailSubject: "",
                             timeToDo: "",
                             priority: "",
                             expert: "",
-                            
+
                         }}
                         onSubmit={handleSub}
                     >
@@ -117,12 +117,12 @@ const handleSub = async (value) => {
                                         id="shadow"
                                         className="form-control w-75"
                                         type="text"
-                                        name="search"
+                                        name="cc"
                                         required="required"
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -140,7 +140,7 @@ const handleSub = async (value) => {
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -158,7 +158,7 @@ const handleSub = async (value) => {
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -173,11 +173,11 @@ const handleSub = async (value) => {
                                         type="text"
                                         name="emailSubject"
                                         required="required"
-                                        
+
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -231,19 +231,18 @@ const handleSub = async (value) => {
                                     <BtnCustom  color="#1890ff" title="ذخیره" type="submit"/>
                                 </div>
                             </Form>)}
-                        
+
                     </Formik>
-        
+
           </Modal>
         </>
       );
 }
- 
+
 export default EmailModal;
 
 
 
 
-  
 
- 
+

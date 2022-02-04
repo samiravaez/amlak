@@ -18,22 +18,27 @@ class EntitySeeder extends Seeder
             [
                 'name' => 'تب طرح',
                 'mobile_unique'=> '09334445560',
+                'trash' => 0
             ],
             [
                 'name' => 'تپسی',
                 'mobile_unique'=> '09334445561',
+                'trash' => 0
             ],
             [
                 'name' => 'آواتک',
                 'mobile_unique'=> '09334445562',
+                'trash' => 0
             ],
             [
                 'name' => 'آسیاتک',
                 'mobile_unique'=> '09334445563',
+                'trash' => 0
             ],
             [
                 'name' => 'حسابرسان',
                 'mobile_unique'=> '09334445564',
+                'trash' => 0
             ],
         ]);
     }

@@ -64,7 +64,7 @@ class TimetableController extends Controller
             'user_id'));
 
         if ($timetable) {
-            Admin_log::createAdminLog(Auth::id(), 0, 'Task', $timetable->id, null,
+            Admin_log::createAdminLog(Auth::id(), 0, 'Timetable', $timetable->id, null,
                 $timetable, 'the timetable is created successfully!');
             $result = ['status' => true, 'message' => 'زمان بندی جدید با موفقیت ایجاد شد.'];
         } else {
@@ -77,12 +77,20 @@ class TimetableController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Timetable $timetable
+     * @param $time_id
      * @return JsonResponse
      */
     public function show($time_id)
     {
-        $timetable = Timetable::where('id', $time_id)->with('post','user')->first();
+        if (Auth::user()->hasRole('super-admin')) {
+            $trash = 0 or 1;
+        } else {
+            $trash = 0;
+        }
+        $timetable = Timetable::where('id', $time_id)->with(['post'=> function ($q) use($trash){
+            $q->where('posts.trash',$trash);
+        }])
+            ->first();
         $result = ['timetable' => $timetable];
 
         return Response::json($result, 200);
@@ -104,19 +112,15 @@ class TimetableController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param \App\Models\Timetable $timetable
+     * @param $time_id
      * @return JsonResponse
      */
     public function update(Request $request, $time_id)
     {
         $timetable = Timetable::findOrFail($time_id);
         $old_value = $timetable;
-        $timetable->update($request->except('_token', '_method', 'file', 'hours'));
-        if ($file = $request->file('file')) {
-            Visit::saveFile($file, $timetable);
-        }
-        $timetable->duration = $request->minutes + ($request->hours * 60);
-        $timetable->save();
+        $timetable->update($request->only('post_id', 'start_time', 'end_time','user_id'));
+
         if ($timetable) {
             Admin_log::createAdminLog(Auth::id(), 2, 'Timetable', $timetable->id, $old_value,
                 $timetable, 'the timetable is updated successfully!');
@@ -147,7 +151,7 @@ class TimetableController extends Controller
 
         if ($timetable) {
             Admin_log::createAdminLog(Auth::id(), 3, 'Timetable', $timetable->id, $old_value,
-                null, 'the visit is deleted successfully!');
+                null, 'the timetable is deleted successfully!');
             $result = ['status' => true, 'message' => 'زمان بندی موردنظر با موفقیت حذف شد.'];
         } else {
             $result = ['status' => false, 'message' => 'عملیات حذف زمان بندی موردنظر ناموفق بود.'];

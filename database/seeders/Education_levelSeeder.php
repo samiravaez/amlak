@@ -17,24 +17,31 @@ class Education_levelSeeder extends Seeder
         DB::table('education_levels')->insert([
             [
                 'name' => 'سیکل',
+                'trash' => 0
             ],
             [
                 'name' => 'دیپلم',
+                'trash' => 0
             ],
             [
                 'name' => 'فوق دیپلم',
+                'trash' => 0
             ],
             [
                 'name' => 'لیسانس',
+                'trash' => 0
             ],
             [
                 'name' => 'فوق لیسانس',
+                'trash' => 0
             ],
             [
                 'name' => 'دکتری',
+                'trash' => 0
             ],
             [
                 'name' => 'فوق دکتری',
+                'trash' => 0
             ],
         ]);
     }

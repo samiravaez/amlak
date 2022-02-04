@@ -25,7 +25,7 @@ class CreateCustomersTable extends Migration
             $table->integer('monthly_income')->nullable();
             $table->unsignedBigInteger('customer_state_id')->nullable();
             $table->unsignedBigInteger('purchase_stage_id')->nullable();
-//            $table->integer('entity')->nullable(); //0=individual 1=entity
+            $table->integer('entity')->nullable(); //0=individual 1=entity
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('customer_type_id')->nullable();
             $table->integer('mantaghe_id')->nullable();

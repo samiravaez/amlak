@@ -17,9 +17,11 @@ class TaskSeeder extends Seeder
         DB::table('tasks')->insert([
             [
                 'progress_rate' => 20,
+                'trash' => 0
             ],
             [
                 'progress_rate' => 40,
+                'trash' => 0
             ],
         ]);
     }

@@ -18,6 +18,9 @@ class CreateTblBakhshTable extends Migration
             $table->integer('PK_Mantaghe')->index('PK_Mantaghe');
             $table->string('Title');
             $table->integer('trash')->default(0);
+
+            $table->foreign('PK_Mantaghe', 'tbl_bakhsh_ibfk_1')->references('ID')->on('tbl_mantaghe')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

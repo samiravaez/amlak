@@ -17,7 +17,14 @@ class MinutesConvertor implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
-        return $value;
+        $day = floor ($value / 1440);
+        $hour = floor (($value - $day * 1440) / 60);
+        $minute = $value - ($day * 1440) - ($hour * 60);
+        return [
+            'days' => $day,
+            'hours' => $hour,
+            'minutes' => $minute,
+        ];
     }
 
     /**

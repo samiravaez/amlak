@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Purchase_stage extends Model
@@ -11,6 +11,9 @@ class Purchase_stage extends Model
     use HasFactory;
     use RevisionableTrait;
 
+    protected $attributes = [
+        'trash' => '0'
+    ];
     protected $guarded = [''];
     public function customers()
     {

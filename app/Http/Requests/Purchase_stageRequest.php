@@ -24,7 +24,7 @@ class Purchase_stageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'max:255',
         ];
     }
 }

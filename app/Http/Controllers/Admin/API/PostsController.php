@@ -107,49 +107,49 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $credentials = array(
-            'name' => request()->input('name'),
-            'slug' => request()->input('slug'),
-            'description' => request()->input('description'),
-            'status' => request()->input('status'),
-            'post_type' => static::$post_type,
-            'image' => request()->input('mainImage'),
-        );
-        $currentUser = Auth::user()->getAuthIdentifier();
-        $credentials['author'] = $currentUser;
-        if ($credentials['slug'] == '') {
-            $credentials['slug'] = $this->uniqueSlug($credentials['name']);
-        } else {
-            $credentials['slug'] = $this->uniqueSlug($credentials['slug']);
-        }
-        $new_post = Post::create($credentials);
-
-        if ($new_post) {
-            if ($request->has('terms')) {
-                $terms = $request->input('terms');
-                $new_post->terms()->sync($terms);
-            }
-            if ($request->has('metas')) {
-                $postMetas = $request->input('metas');
-                if (!empty($postMetas)) {
-                    $sync = array();
-                    foreach ($postMetas as $index => $postMeta) {
-                        $meta = new Postmeta();
-                        $meta->meta_key = $index;
-                        if (is_array($postMeta))
-                            $meta->meta_value = json_encode(array_values($postMeta));
-                        else
-                            $meta->meta_value = $postMeta;
-                        $sync[] = $meta;
-                    }
-                    $new_post->postmetas()->saveMany($sync);
-                }
-            }
-            $result = ['status' => true, 'message' => static::$success_create_post];
-        } else {
-            $result = ['status' => false, 'message' => static::$failure_create_post];
-        }
-        return Response::json($result, 200);
+//        $credentials = array(
+//            'name' => request()->input('name'),
+//            'slug' => request()->input('slug'),
+//            'description' => request()->input('description'),
+//            'status' => request()->input('status'),
+//            'post_type' => static::$post_type,
+//            'image' => request()->input('mainImage'),
+//        );
+//        $currentUser = Auth::user()->getAuthIdentifier();
+//        $credentials['author'] = $currentUser;
+//        if ($credentials['slug'] == '') {
+//            $credentials['slug'] = $this->uniqueSlug($credentials['name']);
+//        } else {
+//            $credentials['slug'] = $this->uniqueSlug($credentials['slug']);
+//        }
+//        $new_post = Post::create($credentials);
+//
+//        if ($new_post) {
+//            if ($request->has('terms')) {
+//                $terms = $request->input('terms');
+//                $new_post->terms()->sync($terms);
+//            }
+//            if ($request->has('metas')) {
+//                $postMetas = $request->input('metas');
+//                if (!empty($postMetas)) {
+//                    $sync = array();
+//                    foreach ($postMetas as $index => $postMeta) {
+//                        $meta = new Postmeta();
+//                        $meta->meta_key = $index;
+//                        if (is_array($postMeta))
+//                            $meta->meta_value = json_encode(array_values($postMeta));
+//                        else
+//                            $meta->meta_value = $postMeta;
+//                        $sync[] = $meta;
+//                    }
+//                    $new_post->postmetas()->saveMany($sync);
+//                }
+//            }
+//            $result = ['status' => true, 'message' => static::$success_create_post];
+//        } else {
+//            $result = ['status' => false, 'message' => static::$failure_create_post];
+//        }
+        return Response::json($request, 200);
     }
 
     public function edit($post_id)

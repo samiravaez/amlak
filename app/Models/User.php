@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Http\Controllers\Admin\AddsController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
-use Spatie\Permission\Traits\HasRoles;
+use Maklad\Permission\Traits\HasRoles;
 use Laravel\Passport\HasApiTokens;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -20,8 +20,11 @@ class User extends Authenticatable
     use HasApiTokens;
     use RevisionableTrait;
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = '_id';
     public static $admin='admin';
+    protected $connection = 'mongodb';
+    protected $collection = 'users';
+
 
     /**
      * The attributes that are mass assignable.
@@ -56,7 +59,7 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Post::class,'author','id');
+        return $this->hasMany(Post::class,'author','_id');
     }
 
     public function activities()
@@ -66,17 +69,17 @@ class User extends Authenticatable
 
     public function crm_requests()
     {
-        return $this->hasMany(CRM::class,'expert_id','id');
+        return $this->hasMany(CRM::class,'expert_id','_id');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class,'comment_user','id');
+        return $this->hasMany(Comment::class,'comment_user','_id');
     }
 
     public function usermetas()
     {
-        return $this->hasMany(Usermeta::class,'user_id','id');
+        return $this->hasMany(Usermeta::class,'user_id','_id');
     }
 
     public function entities()

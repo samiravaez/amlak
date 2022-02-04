@@ -137,7 +137,7 @@ Route::group(['middleware' => []], function () {
         require_once('offers.php');
     });
 
-    Route::group(['prefix' => 'messages'], function () {
+    Route::group(['prefix' => 'text_messages'], function () {
         require_once('text_messages.php');
     });
 
@@ -195,7 +195,7 @@ Route::group(['middleware' => []], function () {
     });
 
     // posts
-    Route::group(['prefix' => 'posts', 'middleware' => 'role:super-admin'], function () {
+    Route::group(['prefix' => 'posts'], function () {
         require_once('posts.php');
     });
 

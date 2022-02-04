@@ -20,8 +20,9 @@ class CreateEntitiesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('id_number')->nullable();
             $table->bigInteger('creator_id')->unsigned()->nullable();
-            $table->string('launch_date')->nullable();
+            $table->timestamp('launch_date')->nullable();
             $table->integer('staff_count')->nullable();
+            $table->integer('monthly_income')->nullable();
             $table->integer('start_working_time')->nullable();
             $table->integer('finish_working_time')->nullable();
             $table->string('economic_code')->nullable();
@@ -33,6 +34,8 @@ class CreateEntitiesTable extends Migration
             $table->string('fax')->nullable();
             $table->integer('weekly_customers_count')->nullable();
             $table->string('business_card')->nullable();
+            $table->string('website')->nullable();
+            $table->text('description')->nullable();
             $table->integer('trash')->default(0);
             $table->timestamps();
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\API;
 use App\Http\Controllers\Controller;
 use App\Models\Admin_log;
 use App\Models\Email;
-use http\Env\Response;
+use Illuminate\Support\Facades\Response;;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class EmailController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -36,7 +36,7 @@ class EmailController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create()
     {
@@ -48,7 +48,7 @@ class EmailController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -89,7 +89,7 @@ class EmailController extends Controller
      * Display the specified resource.
      *
      * @param $email_id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($email_id)
     {
@@ -101,14 +101,13 @@ class EmailController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param $email_id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit($email_id)
     {
-        $email = Email::where('id', $email_id)->with('activity')->first();
-        $result = ['email' => $email, 'page_title' => 'ویرایش ایمیل'];
+        $email = Email::where('_id', $email_id)->with('activity')->first();
 
-        return Response::json($result, 200);
+        return Response::json($email, 200);
     }
 
     /**

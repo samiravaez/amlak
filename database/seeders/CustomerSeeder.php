@@ -19,15 +19,19 @@ class CustomerSeeder extends Seeder
                 'first_name' => 'سارا',
                 'last_name' => 'احمدی',
                 'customer_type_id' => 1,
+                'email'=> 'sara@yahoo.com',
                 'mobile_number'=> '09334445566',
                 'mobile_unique'=> '09334445566',
+                'trash' => 0
             ],
             [
                 'first_name' => 'امیر',
                 'last_name' => 'امیری',
                 'customer_type_id' => 2,
+                'email'=> 'amir@yahoo.com',
                 'mobile_number'=> '09334445577',
                 'mobile_unique'=> '09334445577',
+                'trash' => 0
             ],
         ]);
     }

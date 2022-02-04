@@ -24,7 +24,13 @@ class OfferRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'post_id' => 'exists:posts,postId',
+            'user_id' => 'exists:users,id',
+            'customer_id' => 'exists:customers,id',
+            'topic' => 'nullable|max:255',
+            'description' => 'nullable|max:2000',
+            'file' => 'mimes:jpeg,bmp,png,gif,svg,pdf',
+            'reject_reason' => 'nullable|max:2000',
         ];
     }
 }

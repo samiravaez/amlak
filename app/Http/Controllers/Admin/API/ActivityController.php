@@ -9,6 +9,7 @@ use App\Models\Call;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class ActivityController extends Controller
@@ -20,21 +21,22 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('super-admin')) {
-            $trash = 0 or 1;
-        } else {
-            $trash = 0;
-        }
-        $activities = Activity::where('trash', $trash)
+//        if (Auth::user()->hasRole('super-admin')) {
+//            $trash = 0 or 1;
+//        } else {
+        $trash = 0;
+//        }
+        $activities = Activity::
+        where('trash', $trash)
             ->with('actionable', 'user')
-            ->with(['remind_methods'=> function ($q) use($trash){
-                $q->where('remindables.trash',$trash);
-            }])
-            ->with(['users','customers'=> function ($q) use($trash){
-                $q->where('activables.trash',$trash);
-            }])
+//            ->with(['remind_methods'=> function ($q) use($trash){
+//                $q->where('remindables.trash',$trash);
+//            }])
+//            ->with(['users','customers'=> function ($q) use($trash){
+//                $q->where('activables.trash',$trash);
+//            }])
             ->paginate(15);
-        return Response::json(['activities' => $activities, 'page_title' => 'لیست فعالیت ها'], 200);
+        return Response::json($activities);
     }
 
     /**
@@ -98,25 +100,30 @@ class ActivityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Activity $activity
+     * @param $activity_id
      * @return JsonResponse
      */
-    public function destroy(Activity $activity)
+    public function destroy($activity_id)
     {
-        $old_value = $activity;
-        if (Auth::user()->hasRole('super-admin')) {
-            $trash = 2;
-        } else {
-            $trash = 1;
-        }
-        $activity->trash = $trash;
-        $activity->save();
+        $session = DB::connection('mongodb')->getMongoClient()->startSession();
+        $session->startTransaction();
+        try {
+            $activity = Activity::findOrFail($activity_id);
+//        if (Auth::user()->hasRole('super-admin')) {
+//            $activity->trash = 2;
+//        } else {
+            $activity->trash = 1;
+//        }
+            $activity->actionable()->update(['trash' => 1]);
+            $activity->save();
 
-        if ($activity) {
-            Admin_log::createAdminLog(Auth::id(), 3, 'Activity', $activity->id, $old_value,
+
+            Admin_log::createAdminLog(null, 3, 'Activity', $activity->_id, $activity,
                 null, 'the activity is deleted successfully!');
+            $session->commitTransaction();
             $result = ['status' => true, 'message' => 'فعالیت موردنظر با موفقیت حذف شد.'];
-        } else {
+        } catch (\Exception $exception) {
+            $session->abortTransaction();
             $result = ['status' => false, 'message' => 'عملیات حذف فعالیت موردنظر ناموفق بود.'];
         }
         return Response::json($result, 200);

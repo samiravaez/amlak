@@ -24,7 +24,7 @@ class Remind_methodRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'max:255',
         ];
     }
 }

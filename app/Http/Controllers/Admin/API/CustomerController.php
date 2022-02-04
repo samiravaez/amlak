@@ -78,63 +78,63 @@ class CustomerController extends Controller
      */
     public function customer_store(CustomerRequest $request)
     {
-//       return Response::json($request);
-        $new_customer = Customer::create($request->only('first_name', 'last_name', 'mobile_unique',
-            'shahrestan_id', 'mantaghe_id', 'bakhsh_id', 'username', 'gender', 'customer_type_id', 'email',
-            'id_number', 'monthly_income', 'phone', 'marital_status', 'children_count', 'eye_color_id',
-            'financial_status', 'mariage_date', 'birth_date', 'spouse_birth_date', 'physical_status',
-            'furniture_status', 'customer_state_id', 'purchase_stage_id', 'website', 'description',
-            'residence_change_reason', 'mobile_number', 'career_id', 'attendant_id', 'fund_value'
-
-        ));
-//        $new_customer->creator_id = Auth::id();
-
-        if ($file = $request->file('file')) {
-            $name =  Customer::saveFile($file);
-            $new_customer->birth_certificate = $name;
-        }
-        if ($file = $request->file('photo')) {
-            $name =  Customer::saveFile($file);
-            $new_customer->birth_certificate = $name;
-        }
-        if ($file = $request->file('id_card')) {
-            $name =  Customer::saveFile($file);
-            $new_customer->birth_certificate = $name;
-        }
-        if ($file = $request->birth_certificate) {
-           $name =  Customer::saveFile($file);
-           $new_customer->birth_certificate = $name;
-        }
-
-        //[[0,1],[2,1]]
-        if ($request->has('entity')) {
-            foreach ($request->entities as $add) {
-                $address = Address::create($add);
-                $new_customer->addresses()->save($address);
-            }
-        }
-        if ($request->has('addresses')) {
-            foreach ($request->addresses as $add) {
-                $address = Address::create($add);
-                $new_customer->addresses()->save($address);
-            }
-        }
-
-        if ($request->has('children')) {
-            foreach ($request->children as $child) {
-                $child_rec = Child::create($child);
-                $new_customer->addresses()->save($child_rec);
-            }
-        }
-        $new_customer->save();
-        if ($new_customer) {
-            Admin_log::createAdminLog(1, 0, 'Customer', $new_customer->id, null,
-                $new_customer, 'the customer is created successfully!');
-            $result = ['status' => true, 'message' => 'مشتری جدید با موفقیت ایجاد شد.'];
-        } else {
-            $result = ['status' => false, 'message' => 'عملیات ایجاد مشتری جدید ناموفق بود.'];
-        }
-        return Response::json($result, 200);
+       return Response::json($request);
+//        $new_customer = Customer::create($request->only('first_name', 'last_name', 'mobile_unique',
+//            'shahrestan_id', 'mantaghe_id', 'bakhsh_id', 'username', 'gender', 'customer_type_id', 'email',
+//            'id_number', 'monthly_income', 'phone', 'marital_status', 'children_count', 'eye_color_id',
+//            'financial_status', 'mariage_date', 'birth_date', 'spouse_birth_date', 'physical_status',
+//            'furniture_status', 'customer_state_id', 'purchase_stage_id', 'website', 'description',
+//            'residence_change_reason', 'mobile_number', 'career_id', 'attendant_id', 'fund_value'
+//
+//        ));
+////        $new_customer->creator_id = Auth::id();
+//
+//        if ($file = $request->file('file')) {
+//            $name =  Customer::saveFile($file);
+//            $new_customer->birth_certificate = $name;
+//        }
+//        if ($file = $request->file('photo')) {
+//            $name =  Customer::saveFile($file);
+//            $new_customer->birth_certificate = $name;
+//        }
+//        if ($file = $request->file('id_card')) {
+//            $name =  Customer::saveFile($file);
+//            $new_customer->birth_certificate = $name;
+//        }
+//        if ($file = $request->birth_certificate) {
+//           $name =  Customer::saveFile($file);
+//           $new_customer->birth_certificate = $name;
+//        }
+//
+//        //[[0,1],[2,1]]
+//        if ($request->has('entity')) {
+//            foreach ($request->entities as $add) {
+//                $address = Address::create($add);
+//                $new_customer->addresses()->save($address);
+//            }
+//        }
+//        if ($request->has('addresses')) {
+//            foreach ($request->addresses as $add) {
+//                $address = Address::create($add);
+//                $new_customer->addresses()->save($address);
+//            }
+//        }
+//
+//        if ($request->has('children')) {
+//            foreach ($request->children as $child) {
+//                $child_rec = Child::create($child);
+//                $new_customer->addresses()->save($child_rec);
+//            }
+//        }
+//        $new_customer->save();
+//        if ($new_customer) {
+//            Admin_log::createAdminLog(1, 0, 'Customer', $new_customer->id, null,
+//                $new_customer, 'the customer is created successfully!');
+//            $result = ['status' => true, 'message' => 'مشتری جدید با موفقیت ایجاد شد.'];
+//        } else {
+//            $result = ['status' => false, 'message' => 'عملیات ایجاد مشتری جدید ناموفق بود.'];
+//        }
+//        return Response::json($result, 200);
     }
 
     /**
@@ -146,7 +146,7 @@ class CustomerController extends Controller
     public function customer_show($id)
     {
         return Customer::with('entities', 'user', 'customer_type', 'customer_state', 'purchase_stage', 'addresses')
-            ->where('id', $id)
+            ->where('_id', $id)
             ->first();
     }
 
@@ -163,9 +163,9 @@ class CustomerController extends Controller
 //            ->where('customer_id', $request->customer_id)
 //            ->first();
         $customer = Customer::with('entities', 'addresses')
-            ->where('id', $customer_id)
+            ->where('_id', $customer_id)
             ->first();
-        return Response::json(['customer' => $customer, 'page_title' => 'ویرایش اطلاعات مشتری'], 200);
+        return Response::json($customer,  200);
     }
 
     /**
@@ -183,24 +183,6 @@ class CustomerController extends Controller
             'user_name', 'mobile_unique', 'gender', 'email', 'id_number', 'monthly_income',
             'entity'));
         if ($customer) {
-//            if ($request->has('metas')) {
-//                $customer_meta = $request->input('metas');
-//
-//                foreach ($customer_meta as $index => $value) {
-//                    $meta = Customermeta::where('name', $index)
-//                        ->where('customer_id', $customer->id)->first();
-//                    if ($meta !== null) {
-//                        $meta->value = $value;
-//                        $meta->save();
-//                    } else {
-//                        $new_meta = Customermeta::create([
-//                            'name' => $index,
-//                            'value' => $value,
-//                            'customer_id' => $request->customer_id
-//                        ]);
-//                    }
-//                }
-//            }
             Admin_log::createAdminLog(Auth::id(), 2, 'Customer', $customer->id, $old_value,
                 $customer, 'the customer is updated successfully!');
 
@@ -269,7 +251,7 @@ class CustomerController extends Controller
         $entities = Entity::select('name', 'mobile_unique', 'launch_date',
             'staff_count', 'business_class')->with('customers')
             ->paginate(20);
-        return Response::json(['entities' => $entities, 'page_title' => 'لیست شرکت ها'], 200);
+        return Response::json($entities, 200);
     }
 
     /**
@@ -333,9 +315,9 @@ class CustomerController extends Controller
 //            ->where('customer_id', $id)
 //            ->first();
         $entity = Entity::with('customers', 'addresses')
-            ->where('id', $entity_id)
+            ->where('_id', $entity_id)
             ->first();
-        return Response::json(['entity' => $entity, 'page_title' => 'لیست شرکت ها'], 200);
+        return Response::json($entity,  200);
     }
 
     /**
@@ -351,9 +333,9 @@ class CustomerController extends Controller
 //            ->where('customer_id', $request->customer_id)
 //            ->first();
         $entity = Entity::with('customers', 'addresses')
-            ->where('id', $entity_id)
+            ->where('_id', $entity_id)
             ->first();
-        return Response::json(['entity' => $entity, 'page_title' => 'ویرایش اطلاعات شرکت'], 200);
+        return Response::json($entity,  200);
     }
 
     /**
@@ -403,11 +385,11 @@ class CustomerController extends Controller
     {
         $entity = Entity::findOrFail($entity_id);
         $old_value = $entity;
-        if (Auth::user()->hasRole('super-admin')) {
-            $entity->trash = 2;
-        } else {
+//        if (Auth::user()->hasRole('super-admin')) {
+//            $entity->trash = 2;
+//        } else {
             $entity->trash = 1;
-        }
+//        }
         $entity->save();
 
         if ($entity) {

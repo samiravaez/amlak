@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Laravel\Jetstream\Membership as JetstreamMembership;
-
-class Membership extends JetstreamMembership
+use Jenssegers\Mongodb\Eloquent\Model;
+class Membership extends model
 {
     /**
      * Indicates if the IDs are auto-incrementing.

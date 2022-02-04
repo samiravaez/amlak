@@ -24,10 +24,10 @@ class ChequeRequest extends FormRequest
     public function rules()
     {
         return [
-            'serial_number' => 'max:255',
-            'date' => 'date_format',
-            'bank' => 'max:50',
-            'value' => 'max:50',
+            'serial_number' => 'nullable|max:255',
+            'date' => 'date_format:Y-m-d',
+            'bank' => 'nullable|max:255',
+            'value' => 'numeric|min:2|max:50',
             'photo' => 'max:255',
         ];
     }

@@ -17,18 +17,23 @@ class Eye_colorSeeder extends Seeder
         DB::table('eye_colors')->insert([
             [
                 'name' => 'قهوه ای',
+                'trash' => 0
             ],
             [
                 'name' => 'مشکی',
+                'trash' => 0
             ],
             [
                 'name' => 'طوسی',
+                'trash' => 0
             ],
             [
                 'name' => 'سبز',
+                'trash' => 0
             ],
             [
                 'name' => 'آبی',
+                'trash' => 0
             ],
         ]);
     }

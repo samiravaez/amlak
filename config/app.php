@@ -177,6 +177,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Venturecraft\Revisionable\RevisionableServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
     ],
 
     /*

@@ -24,7 +24,12 @@ class TimetableRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'post_id' => 'exists:posts,postId',
+            'user_id' => 'exists:users,id',
+            'start_time' => 'date_format:Y-m-d H:i:s',
+            'end_time' => 'date_format:Y-m-d H:i:s',
+            'reminder_time' => 'date_format:Y-m-d H:i:s',
+            'description' => 'nullable|max:2000',
         ];
     }
 }

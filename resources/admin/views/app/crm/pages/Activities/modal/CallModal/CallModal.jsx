@@ -10,6 +10,9 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import CollapsForm from "./CollapseForm";
 import BtnCustom from "../../../../../../../components/UI/BtnCustom";
 import BtnOutLine from "../../../../../../../components/UI/BtnOutLine";
+import {convertNumbers} from "../../../../../../../helpers/convertNumbers";
+import {addCall} from "../../../../../../../services/businessServices";
+import NotificationManager from "../../../../../../../components/common/react-notifications/NotificationManager";
 const CallModal = () => {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -26,10 +29,16 @@ const CallModal = () => {
     const handleCancel = () => {
       setVisible(false);
     };
-    
-    const handleSub = async (value) => {
-        console.log(value);
-    };
+
+    const handleSub = async (values) => {
+        addCall(values).then((response) => {
+            if (response.status == true) {
+                NotificationManager.success(response.data.message);
+            } else {
+                NotificationManager.error(response.data.message);
+            }
+        })
+    }
     return (
         <>
             <Button type="text" onClick={showModal}>
@@ -47,18 +56,21 @@ const CallModal = () => {
                     <h1>My Form</h1>
                     <Formik
                         initialValues={{
-                            subject: "",
+                            topic: "",
                             description: "",
-                            timeToDo: "",
-                            reminder: "",
+                            start_time: "",
+                            reminder_time: "",
                             FieldArraysReminder: {},
-                            callDuration: "",
-                            activityStatus: "",
-                            callStatus: "",
+                            call_side: "",
+                            status: "",
                             priority: "",
-                            expert: "",
+                            weight: "",
+                            creator_id: "",
+                            hours: "",
+                            minutes: "",
+                            reminder: false
                         }}
-                        
+
                         onSubmit={handleSub}
                     >
                           {({
@@ -77,12 +89,12 @@ const CallModal = () => {
                                         id="shadow"
                                         className="form-control w-75"
                                         type="text"
-                                        name= "subject"
+                                        name= "topic"
                                         required="required"
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -100,7 +112,7 @@ const CallModal = () => {
                                 <div className=" row">
                                     <p>زمان انجام</p>
                                     <DatePicker
-                                        format="MM/DD/YYYY HH:mm:ss"
+                                        format="YYYY/MM/DD HH:mm:ss"
                                         plugins={[
                                             <TimePicker position="bottom" />,
                                         ]}
@@ -109,8 +121,8 @@ const CallModal = () => {
                                         calendarPosition="bottom-right"
                                         onChange={(e) =>
                                             setFieldValue(
-                                                "timeToDo",
-                                                e.format()
+                                                "start_time",
+                                                convertNumbers(e.format())
                                             )
                                         }
                                   />
@@ -127,10 +139,10 @@ const CallModal = () => {
                                         calendarPosition="bottom-right"
                                     />
                                 </div> */}
-                                
-                                   
-                            
-                                   
+
+
+
+
 
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
@@ -156,7 +168,7 @@ const CallModal = () => {
                                             aria-labelledby="headingOne"
                                             data-parent="#accordionExample"
                                         >
-                                            <CollapsForm setFieldValue={setFieldValue}/>
+                                            <CollapsForm setFieldValue={setFieldValue} values={values}/>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +177,7 @@ const CallModal = () => {
                                     <BtnCustom  color="#1890ff" title="ذخیره" type="submit"/>
                                 </div>
                             </Form>)}
-                        
+
                     </Formik>
                 </div>
             </Modal>

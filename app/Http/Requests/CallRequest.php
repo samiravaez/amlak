@@ -24,11 +24,12 @@ class CallRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'max:255',
-            'start_time' => 'date_format:H:i',
-            'reminder_time' => 'date_format:H:i',
-            'cost' => 'numeric|min:2|max:50',
-            'description' => 'nullable|max:2000',
+//            'start_time' => 'date_format:Y-m-d H:i:s',
+//            'progress_rate' => 'integer|between:0,100',
+//            'reminder_time' => 'date_format:Y-m-d H:i:s',
+//            'description' => 'nullable|max:2000',
+//            'cost' => 'numeric|min:2|max:50',
+//            'duration' => 'numeric|min:2|max:50',
         ];
     }
 }

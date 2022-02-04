@@ -24,7 +24,7 @@ class Customer_typeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'max:255',
         ];
     }
 }

@@ -17,6 +17,10 @@ class CreatePostTermTable extends Migration
             $table->integer('id', true);
             $table->integer('post_postId')->index('post_postId');
             $table->integer('term_term_id')->index('term_term_id');
+
+            $table->foreign('post_postId', 'post_term_ibfk_1')->references('postId')->on('posts')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('term_term_id', 'post_term_ibfk_2')->references('term_id')->on('terms')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

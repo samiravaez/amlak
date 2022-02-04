@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "antd/dist/antd.css";
-import { Modal, Popover, Checkbox, Button } from "antd";
-import { Field, Form, Formik } from "formik";
+import {Modal, Popover, Checkbox, Button} from "antd";
+import {Field, Form, Formik} from "formik";
 import "jquery/dist/jquery.min";
 import "bootstrap/dist/js/bootstrap.min";
 import classes from "./TaskModal.module.css"
-import DatePicker, { DateObject } from "react-multi-date-picker";
+import DatePicker, {DateObject} from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import Reminder from "./reminder";
 import CollapsForm from "./CollapseForm";
-import { FormGroup, Label } from "reactstrap";
+import {FormGroup, Label} from "reactstrap";
 import BtnCustom from "../../../../../../../components/UI/BtnCustom";
 import BtnOutLine from "../../../../../../../components/UI/BtnOutLine";
+import {addTask, fetchTaskEdit} from "../../../../../../../services/businessServices"
+import NotificationManager from "../../../../../../../components/common/react-notifications/NotificationManager";
+import {convertNumbers} from "../../../../../../../helpers/convertNumbers";
+import { Link, useParams } from 'react-router-dom';
 
-const TaskModal = () => {
+const TaskModal = ({match, edit = false}) => {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
+    const { id } = useParams();
     const [reminderBool, setReminderBool] = useState(false);
 
-    const format = "MM/DD/YYYY HH:mm:ss";
+    const format = "YYYY/MM/DD HH:mm:ss";
+
 
 
     const showModal = () => {
@@ -39,15 +45,27 @@ const TaskModal = () => {
         setVisible(false);
     };
 
- 
 
     const onChangeReminder = (e) => {
         setReminderBool(e.target.checked);
     };
 
-    const handleSub = async (value) => {
-        console.log(value);
-    };
+    const fetchData = async() => {
+        fetchTaskEdit({id}).then((response) => {
+            setData(response.data.data)
+            return response
+        })
+    }
+
+    const handleSub = async (values) => {
+        addTask(values).then((response) => {
+            if (response.status == true) {
+                NotificationManager.success(response.data.message);
+            } else {
+                NotificationManager.error(response.data.message);
+            }
+        })
+    }
 
     return (
         <>
@@ -67,32 +85,33 @@ const TaskModal = () => {
 
                     <Formik
                         initialValues={{
-                            subject: "",
+                            topic: "",
                             description: "",
-                            timeToDo: "",
-                            endTime: "",
-                            percentage: "",
+                            start_time: "",
+                            end_time: "",
+                            progress_rate: "",
                             reminder: reminderBool,
-                            expert: "",
-                            dutyStatus: "",
+                            creator_id: "",
+                            status: "",
                             priority: "",
-                            taskType: "",
+                            type: "",
                             reminderCheck: "",
-                            emailCheck:"",
+                            emailCheck: "",
                             cost: "",
-                            activityWeight: "",
-                            day: "",
+                            weight: "",
+                            days: "",
                             hours: "",
                             minutes: "",
+                            reminder_time: "",
                         }}
                         onSubmit={handleSub}
                     >
                         {({
-                            setFieldValue,
-                            setFieldTouched,
-                            values,
-                            setValues,
-                        }) => (
+                              setFieldValue,
+                              setFieldTouched,
+                              values,
+                              setValues,
+                          }) => (
                             <Form>
                                 <FormGroup className="d-flex">
                                     <label>
@@ -103,12 +122,13 @@ const TaskModal = () => {
                                         id="shadow"
                                         className="form-control w-75"
                                         type="text"
-                                        name="subject"
+                                        name="topic"
                                         required="required"
+                                        value={values.topic}
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -121,6 +141,7 @@ const TaskModal = () => {
                                         name="description"
                                         className="w-75 ms-5"
                                         as="textarea"
+                                        value={values.description}
                                     />
                                 </div>
                                 <div className=" row">
@@ -133,11 +154,11 @@ const TaskModal = () => {
                                         calendar={persian}
                                         locale={persian_fa}
                                         calendarPosition="bottom-right"
-                                        value={values.timeToDo}
+                                        value={values.start_time}
                                         onChange={(e) =>
                                             setFieldValue(
-                                                "timeToDo",
-                                                e.format()
+                                                "start_time",
+                                               convertNumbers(e.format())
                                             )
                                         }
                                     />
@@ -147,14 +168,16 @@ const TaskModal = () => {
                                     <DatePicker
                                         format={format}
                                         plugins={[
-                                            <TimePicker position="bottom" />,
+                                            <TimePicker position="bottom"/>,
                                         ]}
                                         calendar={persian}
                                         locale={persian_fa}
                                         calendarPosition="bottom-right"
-                                        value={values.endTime}
+                                        value={values.end_time}
                                         onChange={(e) =>
-                                            setFieldValue("endTime", e.format())
+                                            setFieldValue("end_time",
+                                                convertNumbers(e.format())
+                                            )
                                         }
                                     />
                                 </div>
@@ -165,17 +188,18 @@ const TaskModal = () => {
                                             id="shadow"
                                             className="form-control w-50"
                                             type="number"
-                                            name="percentage"
+                                            name="progress_rate"
+                                            value={values.progress_rate}
                                         />
                                         {/* {errors.weekly_customers_count && touched.weekly_customers_count && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.weekly_customers_count}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                                     </FormGroup>
                                 </div>
                                 <div>
-                                    <Checkbox onChange={onChangeReminder}>
+                                    <Checkbox onChange={onChangeReminder} value={values.reminder}>
                                         {" "}
                                         افزودن یادآوری{" "}
                                     </Checkbox>
@@ -207,14 +231,14 @@ const TaskModal = () => {
                                             data-parent="#accordionExample"
                                         >
                                             <CollapsForm
-                                                setFieldValue={setFieldValue}
+                                                setFieldValue={setFieldValue} values={values}
                                             />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="mt-5">
                                     <BtnOutLine onClick={handleCancel} color="gainsboro" title="انصراف"/>
-                                    <BtnCustom  color="#1890ff" title="ذخیره" type="submit"/>
+                                    <BtnCustom color="#1890ff" title="ذخیره" type="submit"/>
                                 </div>
                             </Form>
                         )}

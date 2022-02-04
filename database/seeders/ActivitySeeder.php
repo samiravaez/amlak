@@ -20,12 +20,16 @@ class ActivitySeeder extends Seeder
                 'description' => 'در حال انجام',
                 'actionable_id' => 1,
                 'actionable_type' => 'App\Models\Task',
+                'poly_relation_name'=>'Task',
+                'trash' => 0
             ],
             [
                 'topic' => 'جلسه با صاحبان ملک',
                 'description' => 'در حال انجام',
                 'actionable_id' => 1,
                 'actionable_type' => 'App\Models\Meeting',
+                'poly_relation_name'=>'Meeting',
+                'trash' => 0
             ],
         ]);
     }

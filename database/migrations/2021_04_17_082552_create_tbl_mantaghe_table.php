@@ -18,6 +18,9 @@ class CreateTblMantagheTable extends Migration
             $table->integer('PK_Shahrestan')->index('PK_Shahrestan');
             $table->string('Title');
             $table->integer('trash')->default(0);
+
+            $table->foreign('PK_Shahrestan', 'tbl_mantaghe_ibfk_1')->references('ID')->on('tbl_shahrestan')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

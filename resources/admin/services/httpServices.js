@@ -8,14 +8,14 @@ axios.interceptors.response.use(null, error => {
         error.response &&
         error.response.status >= 400 &&
         error.response.status < 500;
-    if (!expectedErrors) {
-        console.log(error);
-        alert("مشکلی از سمت سرور رخ داده است.")
+    // if (!expectedErrors) {
+    //     console.log(error);
+    //     alert("مشکلی از سمت سرور رخ داده است.")
         // toast.error("مشکلی از سمت سرور رخ داده است.", {
         //     position: "top-right",
         //     closeOnClick: true
         // });
-    }
+    // }
 
     return Promise.reject(error);
 });

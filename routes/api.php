@@ -52,7 +52,9 @@ Route::middleware('auth:api')->get('/my_adds', [\App\Http\Controllers\Frontend\A
 
 Route::middleware('auth:api')->get('/get_my_add_info/{add_id}', [\App\Http\Controllers\Frontend\AddsController::class, 'get_add_info']);
 //Route::middleware('auth:api')->post('/upload_image', [\App\Http\Controllers\Admin\FilesController::class, 'upload_images']);
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin'
+//    , 'middleware'=>'auth:api'
+], function () {
     require_once('admin/api/routes.php');
 
 });

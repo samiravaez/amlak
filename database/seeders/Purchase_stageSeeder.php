@@ -17,9 +17,11 @@ class Purchase_stageSeeder extends Seeder
         DB::table('purchase_stages')->insert([
             [
                 'name' => 'در حال مذاکره',
+                'trash' => 0
             ],
             [
                 'name' => 'پایان معامله',
+                'trash' => 0
             ],
         ]);
     }

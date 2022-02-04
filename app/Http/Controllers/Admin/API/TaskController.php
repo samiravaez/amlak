@@ -21,11 +21,11 @@ class TaskController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->hasRole('super-admin')) {
-            $trash = 0 or 1;
-        } else {
-            $trash = 0;
-        }
+//        if (Auth::user()->hasRole('super-admin')) {
+//            $trash = 0 or 1;
+//        } else {
+        $trash = 0;
+//        }
         $tasks = Task::where('trash', $trash)
             ->whereHas('activity', function (Builder $q) use ($trash) {
                 $q->where('trash', $trash);
@@ -43,44 +43,48 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
-        DB::beginTransaction();
+//        return Response::json($request);
+        $session = DB::connection('mongodb')->getMongoClient()->startSession();
+        $session->startTransaction();
         try {
             $task = Task::create($request->only('progress_rate', 'reminder', 'priority', 'cost',
-                'status', 'type', 'weight'));
-            $task->duration = $request->minutes + (($request->days * 24) * 60);
+                'status', 'type', 'weight', 'start_time', 'end_time', 'reminder_time'),['session' => $session]);
+            $task->duration = $request->minutes + ($request->hours * 60) + (($request->days * 24) * 60);
             $task->save();
 
-            $activity = $task->activity()->create($request->only('topic', 'description', 'creator_id'));
+            $activity = $task->activity()->create($request->only('topic', 'description', 'creator_id'),['session' => $session]);
+            $name = explode("\\", $activity->actionable_type);
+            $activity->poly_relation_name = $name[2];
+
             if ($request->reminder) {
-                $task->reminder_time = $request->reminder_time;
-                $task->save();
                 $activity->remind_methods()->sync($request->remind_methods);
             }
+            $activity->save();
+
             Admin_log::createAdminLog(Auth::id(), 0, 'Task', $task->id, null,
                 $task, 'the task is created successfully!');
-            DB::commit();
+            $session->commitTransaction();
             $result = ['status' => true, 'message' => 'وظیفه جدید با موفقیت ایجاد شد.'];
+
         } catch (\Exception $exception) {
-            DB::rollBack();
+            $session->abortTransaction();
             $result = ['status' => false, 'message' => 'عملیات ایجاد وظیفه جدید ناموفق بود.'];
         }
+
         return Response::json($result, 200);
     }
 
     public function show($task_id)
     {
-        $task = Task::where('id', $task_id)->with('activity')->first();
-        $result = ['task' => $task];
+        $task = Task::where('_id', $task_id)->with('activity')->first();
 
-        return Response::json($result, 200);
+        return Response::json($task, 200);
     }
 
     public function edit($task_id)
     {
-        $task = Task::where('id', $task_id)->with('activity')->first();
-        $result = ['task' => $task, 'page_title' => 'ویرایش وظیفه'];
-
-        return Response::json($result, 200);
+        $task = Task::where('_id', $task_id)->with('activity')->first();
+        return Response::json($task, 200);
     }
 
     public function update(TaskRequest $request, $task_id)

@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Admin\API;
 
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Controller;
+use App\Models\Admin_log;
 use App\Models\Term;
 use App\Models\Term_type;
 use App\Models\Termmeta;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use Morilog\Jalali\Jalalian;
 
 class CategoriesController extends Controller
 {
-    //
     public static $term_type = 'category';
     public static $has_tree = true;
     public static $show_inputs_mode = false;
@@ -125,6 +126,7 @@ class CategoriesController extends Controller
                     $new_term->termmetas()->saveMany($sync);
                 }
             }
+
             $result = ['status' => true, 'message' => static::$success_create_post];
         } else {
             $result = ['status' => false, 'message' => static::$failure_create_post];

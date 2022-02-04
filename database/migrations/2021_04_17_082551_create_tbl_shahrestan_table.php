@@ -18,6 +18,9 @@ class CreateTblShahrestanTable extends Migration
             $table->integer('PK_Ostan')->nullable()->index('PK_Ostan');
             $table->string('Title')->nullable();
             $table->integer('trash')->default(0);
+
+            $table->foreign('PK_Ostan', 'tbl_shahrestan_ibfk_1')->references('ID')->on('tbl_ostan')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

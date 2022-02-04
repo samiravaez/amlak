@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -12,6 +12,9 @@ class Customer_type extends Model
     use HasFactory;
     use RevisionableTrait;
 
+    protected $attributes = [
+        'trash' => '0'
+    ];
     protected $fillable = ['name'];
 
     public static function getCustomMeta($customer_type_id)

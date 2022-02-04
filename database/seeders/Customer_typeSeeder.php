@@ -17,9 +17,11 @@ class Customer_typeSeeder extends Seeder
         DB::table('customer_types')->insert([
             [
                 'name' => 'کارفرما',
+                'trash' => 0
             ],
             [
                 'name' => 'مشتری',
+                'trash' => 0
             ],
         ]);
     }

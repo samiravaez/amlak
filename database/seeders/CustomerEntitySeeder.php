@@ -19,11 +19,13 @@ class CustomerEntitySeeder extends Seeder
                 'customer_id' => 1,
                 'entity_id' => 1,
                 'position' => 0,
+                'trash' => 0
             ],
             [
                 'customer_id' => 1,
                 'entity_id' => 2,
                 'position' => 1,
+                'trash' => 0
             ],
 
         ]);

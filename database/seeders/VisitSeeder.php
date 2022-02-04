@@ -17,9 +17,11 @@ class VisitSeeder extends Seeder
         DB::table('visits')->insert([
             [
                 'seller_report' => 'بسیار عالی',
+                'trash' => 0
             ],
             [
                 'seller_report' => 'مشتری سختگیر بود',
+                'trash' => 0
             ],
         ]);
     }

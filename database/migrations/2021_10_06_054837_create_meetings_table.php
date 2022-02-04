@@ -26,6 +26,7 @@ class CreateMeetingsTable extends Migration
             $table->integer('status')->nullable(); //the range is 0-4, 0=open 4=canceled
             $table->integer('weight')->nullable();
             $table->integer('duration')->nullable(); //minutes format
+            $table->string('file')->nullable();
             $table->integer('trash')->default(0);
             $table->timestamps();
 

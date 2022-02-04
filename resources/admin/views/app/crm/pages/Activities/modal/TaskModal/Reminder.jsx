@@ -6,8 +6,9 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import { Field } from "formik";
 import { useState } from "react";
 import { Checkbox } from "antd";
+import {convertNumbers} from "../../../../../../../helpers/convertNumbers";
 
-const Reminder = ({values, setFieldValue}) => {
+const Reminder = ({setFieldValue,values}) => {
     const [reminderCheck,setReminderCheck] = useState("")
     const [emailCheck,setEmailCheck] = useState("")
     const onChangeReminderCheck = (e) => {
@@ -21,13 +22,15 @@ const Reminder = ({values, setFieldValue}) => {
             <div className="d-flex">
                 <p>تاریخ و زمان</p>
                 <DatePicker
-                    format="MM/DD/YYYY HH:mm:ss"
+                    format="YYYY/MM/DD HH:mm:ss"
                     plugins={[<TimePicker position="bottom" />]}
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    value={values.reminderDate}                 
-                    onChange={(e)=> setFieldValue('reminderDate',e.format())}
+                    value={values.reminder_time}
+                    onChange={(e)=> setFieldValue('reminder_time',
+                        convertNumbers(e.format())
+                    )}
                 />
             </div>
 
@@ -43,11 +46,11 @@ const Reminder = ({values, setFieldValue}) => {
                     </Checkbox>
                 </div>
                 <div className="col-6">
-                   
+
                   <Checkbox onChange={(e)=> setFieldValue("emailCheck", e.checked)}>
                   ایمیل :
                   </Checkbox>
-                        
+
                 </div>
             </div>
         </div>

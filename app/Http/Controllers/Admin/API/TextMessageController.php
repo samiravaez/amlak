@@ -21,7 +21,7 @@ class TextMessageController extends Controller
         if (Auth::user()->hasRole('super-admin')) {
             $trash = 0 or 1;
         } else {
-        $trash = 0;
+            $trash = 0;
         }
         $messages = Text_message::where('trash', $trash)
             ->whereHas('activity', function (Builder $q) use ($trash) {
@@ -41,45 +41,36 @@ class TextMessageController extends Controller
 
     public function show($message_id)
     {
-        $message = Text_message::where('id', $message_id)->with('activity')->first();
+        $message = Text_message::where('_id', $message_id)->with('activity')->first();
         return Response::json(['messages' => $message]);
     }
 
     public function store(Text_messageRequest $request)
     {
-        DB::beginTransaction();
+        $session = DB::connection('mongodb')->getMongoClient()->startSession();
+        $session->startTransaction();
         try {
-//            [$send_date, $send_time] = array($request->send_date, $request->send_time);
-//            [$remind_date, $remind_time] = array($request->reminder_date, $request->reminder_time);
-//
-//            //merge time and date to Carbon timestamps
-//            $send = $send_date and $send_time ? Carbon::createFromTimestamp($send_date . $send_time) : $send_date;
-//            $remind = $remind_date and $remind_time ? Carbon::createFromTimestamp($remind_date . $remind_time) : $remind_date;
-//
-//            $send_jalali = $send ? Jalalian::fromFormat('Y-m-d H:i:s', $send)->toCarbon() : null;
-//            $remind_jalali = $remind ? Jalalian::fromFormat('Y-m-d H:i:s', $remind)->toCarbon() : null;
-
             $message = Text_message::create($request->only('body', 'send_time', 'message_side', 'reminder', 'priority',
-                'weight'));
-//            $message->send_time = $send_jalali;
-//            $message->reminder_time = $remind_jalali;
-//            $message->save();
+                'weight', 'reminder_time'));
+
             $activity = $message->activity()->create($request->only('topic', 'description', 'creator_id'));
-            if ($request->participants) {
-                $activity->users()->sync($request->participants);
-            }
+            $name = explode("\\", $activity->actionable_type);
+            $activity->poly_relation_name = $name[2];
+
             if ($request->reminder) {
-                $message->reminder_time = $request->reminder_time;
-                $message->save();
                 $activity->remind_methods()->sync($request->remind_methods);
             }
-            Admin_log::createAdminLog(Auth::id(), 0, 'Text_message', $message->id, null,
+//            if ($request->participants) {
+//                $activity->users()->sync($request->participants);
+//            }
+            $activity->save();
+            Admin_log::createAdminLog(null, 0, 'Text_message', $message->id, null,
                 $message, 'the text message is created successfully!');
-            DB::commit();
+            $session->commitTransaction();
             $result = ['status' => true, 'message' => 'پیامک جدید با موفقیت ایجاد شد.'];
 
         } catch (\Exception $exception) {
-            DB::rollBack();
+            $session->abortTransaction();
             $result = ['status' => false, 'message' => 'عملیات ایجاد پیامک جدید ناموفق بود.'];
         }
         return Response::json($result, 200);
@@ -87,10 +78,9 @@ class TextMessageController extends Controller
 
     public function edit($message_id)
     {
-        $message = Text_message::where('id', $message_id)->with('activity')->first();
-        $result = ['message' => $message, 'page_title' => 'ویرایش پیامک'];
+        $message = Text_message::where('_id', $message_id)->with('activity')->first();
 
-        return Response::json($result, 200);
+        return Response::json($message, 200);
     }
 
     public function update(Text_messageRequest $request, $message_id)
@@ -99,7 +89,7 @@ class TextMessageController extends Controller
         DB::beginTransaction();
         try {
             $old_value = $message;
-           $message->update($request->only('body', 'send_time', 'message_side', 'reminder', 'priority',
+            $message->update($request->only('body', 'send_time', 'message_side', 'reminder', 'priority',
                 'weight', 'reminder_time'));
             $activity = tap($message->activity())->update($request->only('topic', 'description', 'creator_id'))->first();
             if ($request->participants) {
@@ -126,11 +116,11 @@ class TextMessageController extends Controller
     {
         $message = Text_message::findOrFail($message_id);
         $old_value = $message;
-        if (Auth::user()->hasRole('super-admin')) {
-            $message->trash = 2;
-        } else {
+//        if (Auth::user()->hasRole('super-admin')) {
+//            $message->trash = 2;
+//        } else {
             $message->trash = 1;
-        }
+//        }
         $message->save();
 
         if ($message) {

@@ -4,26 +4,27 @@ import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { Field } from "formik";
+import {convertNumbers} from "../../../../../../../helpers/convertNumbers";
+import React from "react";
 
-<DatePicker
-    format="MM/DD/YYYY HH:mm:ss"
-    plugins={[<TimePicker position="bottom" />]}
-    calendar={persian}
-    locale={persian_fa}
-    calendarPosition="bottom-right"
-/>;
 
-const Reminder = () => {
+const Reminder = ({values,setFieldValue}) => {
     return (
         <div className="card my-5">
             <div className="d-flex">
                 <p>تاریخ و زمان</p>
                 <DatePicker
-                    format="MM/DD/YYYY HH:mm:ss"
+                    format="YYYY/MM/DD HH:mm:ss"
                     plugins={[<TimePicker position="bottom" />]}
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
+                    value={values.reminder_time}
+                    onChange={(e) =>
+                        setFieldValue("reminder_time",
+                            convertNumbers(e.format())
+                        )
+                    }
                 />
             </div>
 

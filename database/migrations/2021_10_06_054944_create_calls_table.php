@@ -18,7 +18,7 @@ class CreateCallsTable extends Migration
             $table->timestamp('start_time')->nullable();
             $table->integer('progress_rate')->nullable(); //unit = percent
             $table->integer('call_side')->nullable(); //0=incoming call, 1=outgoing call
-            $table->boolean('reminder')->default(0); //0 or 1
+            $table->boolean('reminder')->default(0); // 0 or 1
             $table->timestamp('reminder_time')->nullable();
             $table->integer('priority')->nullable(); //the range is 0-4, 0=low priority
             $table->integer('cost')->nullable();

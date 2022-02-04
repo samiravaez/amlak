@@ -20,7 +20,6 @@ class CreateVisitsTable extends Migration
             $table->boolean('reminder')->default(0);
             $table->integer('post_id')->nullable();
             $table->timestamp('reminder_time')->nullable();
-            $table->unsignedBigInteger('remind_method_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->unsignedBigInteger('deal_id')->nullable();
@@ -35,7 +34,6 @@ class CreateVisitsTable extends Migration
             $table->timestamps();
 
             $table->foreign('post_id')->references('postId')->on('posts');
-            $table->foreign('remind_method_id')->references('id')->on('remind_methods');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->foreign('deal_id')->references('id')->on('deals');

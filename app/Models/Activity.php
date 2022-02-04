@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Casts\RelationTranslator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Activity extends Model
@@ -13,6 +14,11 @@ class Activity extends Model
 
 
     protected $guarded = [''];
+    protected $attributes = [
+        'trash' => 0
+    ];
+
+    protected $casts = ['poly_relation_name'=>RelationTranslator::class];
 
     public function user()
     {
@@ -38,4 +44,6 @@ class Activity extends Model
     {
         return $this->morphToMany(Remind_method::class, 'remindable')->withTimestamps()->withPivot('trash');
     }
+
+
 }

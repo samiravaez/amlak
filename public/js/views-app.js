@@ -633,20 +633,44 @@ var data = [{
   to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms"),
   permission: ['shops.create', 'shops.list', 'shops.edit'],
   subs: [{
-    label: 'menu.crm.list',
-    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/list"),
+    label: 'menu.crm.dashboard',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/dashboard"),
     permission: ['shops.list']
   }, {
-    label: 'menu.crm.create',
-    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/create"),
+    label: 'menu.crm.customers',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/customers"),
     permission: ['shops.create']
   }, {
-    label: 'menu.crm.listone',
-    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/my"),
+    label: 'menu.crm.inquiry',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/inquiry"),
     permission: ['shops.list']
   }, {
-    label: 'menu.crm.Inquiry',
-    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/inquiry"),
+    label: 'menu.crm.visits',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/visits"),
+    permission: ['shops.create']
+  }, {
+    label: 'menu.crm.activities',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/activities"),
+    permission: ['shops.create']
+  }, {
+    label: 'menu.crm.salesOpportunity',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/salesOpportunity"),
+    permission: ['shops.create']
+  }, {
+    label: 'menu.crm.requestCampaign',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/requestCampaign"),
+    permission: ['shops.create']
+  }, {
+    label: 'menu.crm.documents',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/documents"),
+    permission: ['shops.create']
+  }, {
+    label: 'menu.crm.accounting',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/accounting"),
+    permission: ['shops.create']
+  }, {
+    label: 'menu.crm.crmSettings',
+    to: "".concat(_defaultValues__WEBPACK_IMPORTED_MODULE_0__.adminRoot, "/crms/crmSettings"),
     permission: ['shops.create']
   }]
 }, {
@@ -790,8 +814,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/es/Row.js");
 /* harmony import */ var _components_common_CustomBootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/common/CustomBootstrap */ "./resources/admin/components/common/CustomBootstrap.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -800,57 +822,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Footer = function Footer() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("footer", {
-    className: "page-footer",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-      className: "footer-content",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "container-fluid",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_CustomBootstrap__WEBPACK_IMPORTED_MODULE_1__.Colxx, {
-            xxs: "12",
-            sm: "6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
-              className: "mb-0 text-muted",
-              children: "ColoredStrategies 2021"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_common_CustomBootstrap__WEBPACK_IMPORTED_MODULE_1__.Colxx, {
-            className: "col-sm-6 d-none d-sm-block",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("ul", {
-              className: "breadcrumb pt-0 pr-0 float-right",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                className: "breadcrumb-item mb-0",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-                  className: "btn-link",
-                  to: "#",
-                  location: {},
-                  children: "Review"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                className: "breadcrumb-item mb-0",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-                  className: "btn-link",
-                  to: "#",
-                  location: {},
-                  children: "Purchase"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-                className: "breadcrumb-item mb-0",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
-                  className: "btn-link",
-                  to: "#",
-                  location: {},
-                  children: "Docs"
-                })
-              })]
-            })
-          })]
-        })
-      })
-    })
-  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {}) // <footer className="page-footer">
+  //   <div className="footer-content">
+  //     <div className="container-fluid">
+  //       <Row>
+  //         <Colxx xxs="12" sm="6">
+  //           <p className="mb-0 text-muted">ColoredStrategies 2021</p>
+  //         </Colxx>
+  //         <Colxx className="col-sm-6 d-none d-sm-block">
+  //           <ul className="breadcrumb pt-0 pr-0 float-right">
+  //             <li className="breadcrumb-item mb-0">
+  //               <NavLink className="btn-link" to="#" location={{}}>
+  //                 Review
+  //               </NavLink>
+  //             </li>
+  //             <li className="breadcrumb-item mb-0">
+  //               <NavLink className="btn-link" to="#" location={{}}>
+  //                 Purchase
+  //               </NavLink>
+  //             </li>
+  //             <li className="breadcrumb-item mb-0">
+  //               <NavLink className="btn-link" to="#" location={{}}>
+  //                 Docs
+  //               </NavLink>
+  //             </li>
+  //           </ul>
+  //         </Colxx>
+  //       </Row>
+  //     </div>
+  //   </div>
+  // </footer>
+  ;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
@@ -11878,84 +11881,6 @@ var PopperContent = /*#__PURE__*/function (_React$Component) {
 PopperContent.propTypes = propTypes;
 PopperContent.defaultProps = defaultProps;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PopperContent);
-
-/***/ }),
-
-/***/ "./node_modules/reactstrap/es/Row.js":
-/*!*******************************************!*\
-  !*** ./node_modules/reactstrap/es/Row.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils */ "./node_modules/reactstrap/es/utils.js");
-
-
-var _excluded = ["className", "cssModule", "noGutters", "tag", "form", "widths"];
-
-
-
-
-var rowColWidths = ['xs', 'sm', 'md', 'lg', 'xl'];
-var rowColsPropType = prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]);
-var propTypes = {
-  tag: _utils__WEBPACK_IMPORTED_MODULE_5__.tagPropType,
-  noGutters: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
-  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
-  cssModule: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
-  form: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
-  xs: rowColsPropType,
-  sm: rowColsPropType,
-  md: rowColsPropType,
-  lg: rowColsPropType,
-  xl: rowColsPropType
-};
-var defaultProps = {
-  tag: 'div',
-  widths: rowColWidths
-};
-
-var Row = function Row(props) {
-  var className = props.className,
-      cssModule = props.cssModule,
-      noGutters = props.noGutters,
-      Tag = props.tag,
-      form = props.form,
-      widths = props.widths,
-      attributes = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
-
-  var colClasses = [];
-  widths.forEach(function (colWidth, i) {
-    var colSize = props[colWidth];
-    delete attributes[colWidth];
-
-    if (!colSize) {
-      return;
-    }
-
-    var isXs = !i;
-    colClasses.push(isXs ? "row-cols-" + colSize : "row-cols-" + colWidth + "-" + colSize);
-  });
-  var classes = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.mapToCssModules)(classnames__WEBPACK_IMPORTED_MODULE_4___default()(className, noGutters ? 'no-gutters' : null, form ? 'form-row' : 'row', colClasses), cssModule);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Tag, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, attributes, {
-    className: classes
-  }));
-};
-
-Row.propTypes = propTypes;
-Row.defaultProps = defaultProps;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Row);
 
 /***/ }),
 

@@ -27,8 +27,8 @@ class PermissionsController extends Controller
 
     public function store(Request $request)
     {
-        $permission_name = $request->input('permission_name');
-        $permission_title = $request->input('permission_title');
+        $permission_name = $request->input('name');
+        $permission_title = $request->input('title');
         $permissionItem = Permission::create(array(
             'name' => $permission_name,
             'title' => $permission_title,
@@ -53,8 +53,8 @@ class PermissionsController extends Controller
     {
         $permission = Permission::findOrFail($permission_id);
 
-        $permission_title = $request->input('permission_title');
-        $permission_name = $request->input('permission_name');
+        $permission_title = $request->input('title');
+        $permission_name = $request->input('name');
         $update_item = $permission->update(array(
             'name' => $permission_name,
             'title' => $permission_title,

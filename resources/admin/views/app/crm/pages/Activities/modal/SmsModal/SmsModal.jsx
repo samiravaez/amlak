@@ -4,6 +4,7 @@ import "antd/dist/antd.css";
 import { Modal, Button, Checkbox, Popover } from "antd";
 import { Field, Form, Formik } from "formik";
 import { FormGroup, Label } from "reactstrap";
+import Reminder from "./reminder";
 import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
@@ -13,10 +14,13 @@ import CollapsForm from "./CollapseForm";
 import MessageReadyModal from "./MessageReadyModal";
 import BtnCustom from "../../../../../../../components/UI/BtnOutLine";
 import BtnOutLine from "./../../../../../../../components/UI/BtnOutLine";
+import {addSms} from "../../../../../../../services/businessServices";
+import NotificationManager from "../../../../../../../components/common/react-notifications/NotificationManager";
 
 const SmsModal = () => {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
+    const [reminderBool, setReminderBool] = useState(false);
     const showModal = () => {
         setVisible(true);
     };
@@ -32,9 +36,19 @@ const SmsModal = () => {
     const handleCancel = () => {
         setVisible(false);
     };
-    const handleSub =  (value) => {
-        console.log(value);
+
+    const onChangeReminder = (e) => {
+        setReminderBool(e.target.checked);
     };
+    const handleSub = async (values) => {
+        addSms(values).then((response) => {
+            if (response.status == true) {
+                NotificationManager.success(response.data.message);
+            } else {
+                NotificationManager.error(response.data.message);
+            }
+        })
+    }
     return (
         <>
             <Button type="text" onClick={showModal}>
@@ -51,16 +65,21 @@ const SmsModal = () => {
                 <h1>My Form</h1>
                 <Formik
                     initialValues={{
-                       sendTo: "",
-                       subject: "",
-                       message: "",
-                       timeToDo: "",
+                       topic: "",
+                       description: "",
+                       receiver: "",
+                       body: "",
+                       send_time: "",
                        priority: "",
-                       expert: "",
+                       creator_id: "",
+                       weight: "",
+                       reminder: reminderBool,
+                       reminder_time: "",
+                       message_side: ""
                     }}
                     onSubmit={handleSub}
-                        
-                   
+
+
                 >
                     {({
                         setFieldValue,
@@ -78,12 +97,12 @@ const SmsModal = () => {
                                     id="shadow"
                                     className="form-control w-75"
                                     type="text"
-                                    name="sendTo"
+                                    name="receiver"
                                     required="required"
                                 />
                                 {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                             </FormGroup>
@@ -96,28 +115,47 @@ const SmsModal = () => {
                                     id="shadow"
                                     className="form-control w-75"
                                     type="text"
-                                    name="subject"
+                                    name="topic"
                                     required="required"
                                 />
                                 {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                             </FormGroup>
 
                             <div className="d-flex">
                                 <label htmlFor="description" className="">
+                                    توضیحات :
+                                </label>
+                                <Field
+                                    name="description"
+                                    className="w-75 ms-5"
+                                    as="textarea"
+                                />
+                            </div>
+
+                            <div className="d-flex">
+                                <label htmlFor="description" className="">
                                     پیغام :
                                 </label>
                                 <Field
-                                    name="message"
+                                    name="body"
                                     className="w-75 ms-5"
                                     as="textarea"
                                 />
                             </div>
 
                             <MessageReadyModal />
+                            <div>
+                                <Checkbox onChange={onChangeReminder}>
+                                    {" "}
+                                    افزودن یادآوری{" "}
+                                </Checkbox>
+                            </div>
+                            {reminderBool && <Reminder setFieldValue={setFieldValue} values={values}/>}
+
 
                             <div class="accordion" id="accordionExample">
                                 <div class="card">

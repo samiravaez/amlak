@@ -28,8 +28,8 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         $role = Role::create(array(
-            'name' => $request->input('role_name'),
-            'title' => $request->input('role_title'),
+            'name' => $request->input('name'),
+            'title' => $request->input('title'),
         ));
         $permissions = $request->input('permissions');
         if ($role) {
@@ -56,8 +56,8 @@ class RolesController extends Controller
         $permissions = $request->input('permissions');
 
         $role->update(array(
-            'name' => $request->input('role_name'),
-            'title' => $request->input('role_title'),
+            'name' => $request->input('name'),
+            'title' => $request->input('title'),
         ));
         $role->syncPermissions($permissions);
 

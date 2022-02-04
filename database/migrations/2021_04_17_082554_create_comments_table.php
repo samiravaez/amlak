@@ -21,6 +21,9 @@ class CreateCommentsTable extends Migration
             $table->integer('comment_parent');
             $table->integer('comment_status')->default(0);
             $table->timestamp('created_at')->useCurrent();
+
+            $table->foreign('comment_user', 'comments_ibfk_1')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('comment_post', 'comments_ibfk_2')->references('postId')->on('posts')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Admin_log extends Model
@@ -18,7 +18,7 @@ class Admin_log extends Model
 
     public static function createAdminLog($admin_id,$type,$model_name,$record_id,$old_value,$new_value,$message,$details=null){
 
-        $user = User::findOrFail($admin_id);
+        $user = User::find($admin_id);
         Admin_log::create([
             'admin_id' => $user->id,
             'type' => $type,

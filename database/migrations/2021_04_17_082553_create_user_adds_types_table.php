@@ -18,6 +18,9 @@ class CreateUserAddsTypesTable extends Migration
             $table->unsignedBigInteger('user_id')->index('user_id');
             $table->integer('transaction_id');
             $table->integer('land_type_id');
+
+            $table->foreign('user_id', 'user_adds_types_ibfk_1')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

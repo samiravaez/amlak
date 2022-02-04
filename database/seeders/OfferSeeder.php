@@ -17,9 +17,12 @@ class OfferSeeder extends Seeder
         DB::table('offers')->insert([
             [
                 'topic' => ' ملک تجاری',
+                'trash' => 0
             ],
             [
                 'topic' => 'ملک مسکونی',
+                'trash' => 0
+
             ],
         ]);
     }

@@ -21,6 +21,9 @@ class CreateTermsTable extends Migration
             $table->string('term_slug');
             $table->string('term_description')->nullable();
             $table->integer('term_order')->default(0);
+
+            $table->foreign('term_type', 'terms_ibfk_1')->references('term_type_id')->on('term_types')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

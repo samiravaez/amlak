@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Morilog\Jalali\Jalalian;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -13,6 +13,9 @@ class Cheque extends Model
     use HasFactory;
     use RevisionableTrait;
 
+    protected $attributes = [
+        'trash' => '0'
+    ];
     protected $guarded = [''];
 
     public function getDateAttribute($value)

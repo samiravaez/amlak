@@ -38,22 +38,25 @@ class CallController extends Controller
 
     public function store(CallRequest $request)
     {
-        DB::beginTransaction();
+
+        $session = DB::connection('mongodb')->getMongoClient()->startSession();
+        $session->startTransaction();
         try {
             $call = Call::create($request->only('progress_rate', 'call_side', 'reminder', 'priority', 'cost',
-                'status', 'type', 'weight', 'duration','start_time'));
+                'status', 'type', 'weight','start_time','reminder_time'));
+            $call->duration = $request->minutes + ($request->hours * 60);
+            $call->save();
+
             $activity = $call->activity()->create($request->only('topic', 'description', 'creator_id'));
             if ($request->reminder) {
-                $call->reminder_time = $request->reminder_time;
-                $call->save();
                 $activity->remind_methods()->sync($request->remind_methods);
             }
             Admin_log::createAdminLog(1, 0, 'Call', $call->id, null,
                 $call, 'the call is created successfully!');
-            DB::commit();
+            $session->commitTransaction();
             $result = ['status' => true, 'message' => 'تماس جدید با موفقیت ایجاد شد.'];
         } catch (\Exception $exception) {
-            DB::rollBack();
+            $session->abortTransaction();
             $result = ['status' => false, 'message' => 'عملیات ایجاد تماس جدید ناموفق بود.'];
         }
         return Response::json($result, 200);
@@ -61,10 +64,9 @@ class CallController extends Controller
 
     public function edit($call_id)
     {
-        $call = Call::where('id', $call_id)->with('activity')
+        $call = Call::where('_id', $call_id)->with('activity')
             ->first();
-        $result = ['call' => $call, 'page_title' => 'ویرایش تماس'];
-        return Response::json($result, 200);
+        return Response::json($call, 200);
     }
 
     public function show($call_id)
@@ -81,11 +83,12 @@ class CallController extends Controller
         try {
             $old_value = $call;
             $call->update($request->only('progress_rate', 'call_side', 'reminder', 'priority', 'cost',
-                'status', 'type', 'weight', 'duration','start_time'));
-            $activity = tap($call->activity())->update($request->only('topic', 'description', 'creator_id'))->first();
+                'status', 'type', 'weight','start_time','reminder_time'));
+            $call->duration = $request->minutes + ($request->hours * 60);
+            $call->save();
+
+            $activity = $call->activity()->create($request->only('topic', 'description', 'creator_id'));
             if ($request->reminder) {
-                $call->reminder_time = $request->reminder_time;
-                $call->save();
                 $activity->remind_methods()->sync($request->remind_methods);
             }
             Admin_log::createAdminLog(Auth::id(), 2, 'Call', $call->id, $old_value,

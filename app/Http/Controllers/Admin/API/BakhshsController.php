@@ -51,7 +51,7 @@ class BakhshsController extends Controller
         $bakhsh->save();
 
         if ($bakhsh) {
-            Admin_log::createAdminLog(Auth::id(), 3, 'Entity', $bakhsh->id, $old_value,
+            Admin_log::createAdminLog(Auth::id(), 3, 'Entity', $bakhsh->ID, $old_value,
                 null, 'the bakhsh is deleted successfully!');
             $result = ['status' => true, 'message' => 'بخش مورد نظر با موفقیت حذف شد.'];
         } else {

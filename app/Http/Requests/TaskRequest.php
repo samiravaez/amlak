@@ -24,7 +24,13 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+//            'start_time' => 'nullable|date_format:Y-m-d H:i:s',
+//            'end_time' => 'nullable',
+//            'reminder_time' => 'nullable',
+//            'description' => 'nullable|max:2000',
+//            'progress_rate' => 'nullable|integer|between:0,100',
+//            'cost' => 'nullable|numeric|min:2|max:50',
+//            'duration' => 'nullable|numeric|min:2|max:50',
         ];
     }
 }

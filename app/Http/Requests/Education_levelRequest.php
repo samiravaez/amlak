@@ -24,7 +24,7 @@ class Education_levelRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'max:255'
         ];
     }
 }

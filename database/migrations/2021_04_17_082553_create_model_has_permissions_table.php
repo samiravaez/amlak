@@ -19,6 +19,9 @@ class CreateModelHasPermissionsTable extends Migration
             $table->unsignedBigInteger('model_id');
             $table->index(['model_id', 'model_type']);
             $table->primary(['permission_id', 'model_id', 'model_type']);
+
+            $table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('RESTRICT')->onDelete('CASCADE');
+
         });
     }
 

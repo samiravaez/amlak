@@ -17,9 +17,11 @@ class Text_messageSeeder extends Seeder
         DB::table('text_messages')->insert([
             [
                 'body' => 'ساعت ۵ تشریف بیاوردید',
+                'trash' => 0
             ],
             [
                 'body' => 'اطلاعات خود را تکمیل کنید.',
+                'trash' => 0
             ],
         ]);
     }

@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Casts\DateConverter;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Morilog\Jalali\Jalalian;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -13,11 +14,17 @@ class Customer extends Model
 {
     use HasFactory;
     use RevisionableTrait;
-
-//    protected $fillable = ['first_name','last_name','mobile_unique','entity','customer_type_id',
-//        'mobile_number','phone','email','creator_id'];
+    protected $guard_name = 'api';
 
     protected $guarded = [''];
+    protected $attributes = [
+        'trash' => 0
+    ];
+
+    protected $casts = ['birth_date' => DateConverter::class, 'marriage_date' => DateConverter::class,
+        'spouse_birth_date' => DateConverter::class];
+
+
     public function customermetas()
     {
         return $this->hasMany(Customermeta::class);
@@ -113,35 +120,8 @@ class Customer extends Model
 
     }
 
-    public function __set($key, $value)
-    {
-        if(in_array($key, ['birth_date', 'marriage_date','spouse_birth_date']) and $value != null){
-            $this->attributes[$key] =  Jalalian::fromFormat('Y-m-d', $value)->toCarbon();
-        } else {
-            $this->setAttribute($key, $value);
-        }
-    }
 
-    public function getMarriageDateAttribute($value)
-    {
-        $value = new Carbon($value);
-        return $value ?
-            Jalalian::fromCarbon($value)->format('Y/m/d') : null;
-    }
 
-    public function getBirthDateAttribute($value)
-    {
-        $value = new Carbon($value);
-        return $value ?
-            Jalalian::fromCarbon($value)->format('Y/m/d') : null;
-    }
-
-    public function getSpouseBirthDateAttribute($value)
-    {
-        $value = new Carbon($value);
-        return $value ?
-            Jalalian::fromCarbon($value)->format('Y/m/d') : null;
-    }
 
 }
 

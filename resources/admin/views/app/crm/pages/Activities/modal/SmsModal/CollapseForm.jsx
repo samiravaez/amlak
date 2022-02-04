@@ -8,30 +8,58 @@ import DatePicker from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import {convertNumbers} from "../../../../../../../helpers/convertNumbers";
 
 const CollapsForm = ({setFieldValue, values}) => {
-    const onChangeReminder = (e) => {
-        setFieldValue("sendAtAnotherTime", e.target.checked);
-    };
+    // const onChangeReminder = (e) => {
+    //     setFieldValue("sendAtAnotherTime", e.target.checked);
+    // };
     return (
         <>
             <div class="card-body">
-                <div>
-                    <Checkbox onChange={onChangeReminder}>
-                        {" "}
-                        ارسال در زمان دیگر{" "}
-                    </Checkbox>
+                {/*<div>*/}
+                {/*    <Checkbox onChange={onChangeReminder}>*/}
+                {/*        {" "}*/}
+                {/*        ارسال در زمان دیگر{" "}*/}
+                {/*    </Checkbox>*/}
+                {/*</div>*/}
+
+                <div className="row">
+                    <p> جهت تماس</p>
+                    <FormGroup className="w-50">
+                        <Select
+                            id="shadow"
+                            className="form-control"
+                            name="message_side"
+
+                            options={[
+                                { value: 0, label: "ورودی" },
+                                { value: 1, label: "خروجی" },
+                            ]}
+                            onChange={(e) =>
+                                setFieldValue("message_side", e.value)
+                            }
+                        />
+                        {/* {errors.company_type && touched.company_type && (
+                                                            <div className="invalid-feedback d-block">
+                                                                {errors.company_type}
+                                                            </div>
+                                                        )}*/}
+                    </FormGroup>
                 </div>
+
                 <div className=" row">
                     <p>زمان ارسال</p>
                     <DatePicker
-                        format="MM/DD/YYYY HH:mm:ss"
+                        format="YYYY/MM/DD HH:mm:ss"
                         plugins={[<TimePicker position="bottom" />]}
                         calendar={persian}
                         locale={persian_fa}
                         calendarPosition="bottom-right"
-                        value={values.endTime}
-                        onChange={(e) => setFieldValue("timeToDo", e.format())}
+                        value={values.send_time}
+                        onChange={(e) => setFieldValue("send_time",
+                            convertNumbers(e.format())
+                        )}
                     />
                 </div>
 
@@ -53,19 +81,30 @@ const CollapsForm = ({setFieldValue, values}) => {
                         {/* {errors.company_type && touched.company_type && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.company_type}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                     </FormGroup>
                 </div>
 
+                <div className="col">
+                    <label htmlFor="weight" className="">
+                        وزن فعالیت :
+                    </label>
+                    <Field
+                        id="shadow"
+                        className="form-control"
+                        type="number"
+                        name={"weight"}
+                    />
+                </div>
                 <div className="row">
-                    <label htmlFor="expert" className="">
+                    <label htmlFor="creator_id" className="">
                         کارشناس :
                     </label>
                     <Popover
                         content={
                             <div>
-                                <Field name="expert" className="w-100 ms-5" />
+                                <Field name="creator_id" className="w-100 ms-5" />
                                 <p>
                                     لطفا تعداد دو کاراکتر یا بیشتر را وارد کنید
                                 </p>
@@ -77,28 +116,28 @@ const CollapsForm = ({setFieldValue, values}) => {
                         <Button className="w-25">علی علیزاده</Button>
                     </Popover>
                 </div>
-                <div className="row">
-                    <div>
-                        <p>مرتبط با</p>
-                    </div>
+                {/*<div className="row">*/}
+                {/*    <div>*/}
+                {/*        <p>مرتبط با</p>*/}
+                {/*    </div>*/}
 
-                    <FormGroup className="w-50">
-                        <Select
-                            id="shadow"
-                            className="form-control"
-                            // name="company_type"
-                            options={[{ value: 0, label: "رویداد های من" }]}
-                            // onChange={(e) =>
-                            //     setFieldValue("company_type", e.value)
-                            // }
-                        />
-                        {/* {errors.company_type && touched.company_type && (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.company_type}
-                                                            </div> 
-                                                        )}*/}
-                    </FormGroup>
-                </div>
+                {/*    <FormGroup className="w-50">*/}
+                {/*        <Select*/}
+                {/*            id="shadow"*/}
+                {/*            className="form-control"*/}
+                {/*            // name="company_type"*/}
+                {/*            options={[{ value: 0, label: "رویداد های من" }]}*/}
+                {/*            // onChange={(e) =>*/}
+                {/*            //     setFieldValue("company_type", e.value)*/}
+                {/*            // }*/}
+                {/*        />*/}
+                {/*        /!* {errors.company_type && touched.company_type && (*/}
+                {/*                                            <div className="invalid-feedback d-block">*/}
+                {/*                                                {errors.company_type}*/}
+                {/*                                            </div> */}
+                {/*                                        )}*!/*/}
+                {/*    </FormGroup>*/}
+                {/*</div>*/}
             </div>
         </>
     );

@@ -41,29 +41,34 @@ class MeetingController extends Controller
 
     public function store(Request $request)
     {
-        DB::beginTransaction();
+        $session = DB::connection('mongodb')->getMongoClient()->startSession();
+        $session->startTransaction();
         try {
 
             $meeting = Meeting::create($request->only('location', 'progress_rate', 'reminder', 'priority', 'cost',
-                'status', 'type', 'weight', 'duration', 'start_time', 'end_time'));
+                'status','weight','start_time', 'end_time','reminder_time'));
+            $meeting->duration = $request->minutes + ($request->hours * 60);
+            $meeting->save();
 
             $activity = $meeting->activity()->create($request->only('topic', 'description', 'creator_id'));
+            $name = explode("\\", $activity->actionable_type);
+            $activity->poly_relation_name = $name[2];
+
             if ($request->reminder) {
-                $meeting->reminder_time = $request->reminder_time;
-                $meeting->save();
                 $activity->remind_methods()->sync($request->remind_methods);
             }
-            if ($request->participants) {
-                $activity->users()->sync($request->participants);
-            }
+//            if ($request->participants) {
+//                $activity->users()->sync($request->participants);
+//            }
 
-            Admin_log::createAdminLog(Auth::id(), 0, 'Meeting', $meeting->id, null,
+            $activity->save();
+            Admin_log::createAdminLog(null, 0, 'Meeting', $meeting->id, null,
                 $meeting, 'the meeting is created successfully!');
-            DB::commit();
+            $session->commitTransaction();
             $result = ['status' => true, 'message' => 'جلسه جدید با موفقیت ایجاد شد.'];
 
         } catch (\Exception $exception) {
-            DB::rollBack();
+            $session->abortTransaction();
             $result = ['status' => false, 'message' => 'عملیات ایجاد جلسه جدید ناموفق بود.'];
         }
         return Response::json($result, 200);
@@ -71,15 +76,14 @@ class MeetingController extends Controller
 
     public function edit($meeting_id)
     {
-        $meeting = Meeting::where('id', $meeting_id)->with('activity')->first();
-        $result = ['meeting' => $meeting, 'page_title' => 'ویرایش جلسه'];
+        $meeting = Meeting::where('_id', $meeting_id)->with('activity')->first();
 
-        return Response::json($result, 200);
+        return Response::json($meeting, 200);
     }
 
     public function show($meeting_id)
     {
-        $meeting = Meeting::where('id', $meeting_id)->with('activity')->first();
+        $meeting = Meeting::where('_id', $meeting_id)->with('activity')->first();
         $result = ['meeting' => $meeting];
 
         return Response::json($result, 200);
@@ -92,17 +96,22 @@ class MeetingController extends Controller
         try {
             $old_value = $meeting;
             $meeting->update($request->only('location', 'progress_rate', 'reminder', 'priority', 'cost',
-                'status', 'type', 'weight', 'duration', 'start_time', 'end_time'));
+                'status','weight','start_time', 'end_time','reminder_time'));
+            $meeting->duration = $request->minutes + ($request->hours * 60);
+            $meeting->save();
 
-            $activity = tap($meeting->activity())->update($request->only('topic', 'description', 'creator_id'))->first();
+            $activity = $meeting->activity()->create($request->only('topic', 'description', 'creator_id'));
+            $name = explode("\\", $activity->actionable_type);
+            $activity->poly_relation_name = $name[2];
+
             if ($request->reminder) {
-                $meeting->reminder_time = $request->reminder_time;
-                $meeting->save();
                 $activity->remind_methods()->sync($request->remind_methods);
             }
-            if ($request->participants) {
-                $activity->users()->sync($request->participants);
-            }
+//            if ($request->participants) {
+//                $activity->users()->sync($request->participants);
+//            }
+
+            $activity->save();
 
             Admin_log::createAdminLog(Auth::id(), 2, 'Meeting', $meeting->id, $old_value,
                 $meeting, 'the meeting is updated successfully!');

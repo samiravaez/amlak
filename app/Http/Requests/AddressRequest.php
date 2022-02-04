@@ -24,7 +24,10 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'address' => 'max:255',
+            'address' => 'nullable|max:255',
+            'shahrestan_id' => 'exists:tbl_shahrestan,ID',
+            'mantaghe_id' => 'exists:tbl_mantaghe,ID',
+            'bakhsh_id' => 'exists:tbl_bakhsh,ID',
         ];
     }
 }

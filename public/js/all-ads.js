@@ -2102,7 +2102,7 @@ var TableAjax = function TableAjax(_ref) {
       pageIndex: pageIndex,
       pageSize: pageSize
     });
-  }, [fetchData, pageIndex, pageSize]); // Render the UI for your table
+  }, [pageIndex, pageSize]); // Render the UI for your table
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
     children: [debug && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("pre", {
@@ -2120,6 +2120,7 @@ var TableAjax = function TableAjax(_ref) {
     }, getTableProps()), {}, {
       responsive: true,
       bordered: true,
+      striped: true,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
         children: headerGroups.map(function (headerGroup) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", _objectSpread(_objectSpread({}, headerGroup.getHeaderGroupProps()), {}, {
@@ -3006,37 +3007,17 @@ var Allads = function Allads(_ref) {
     return function handleModalNotApproveSubmit(_x) {
       return _ref3.apply(this, arguments);
     };
-  }();
+  }(); // const fetchData = React.useCallback(async ({ pageSize, pageIndex }) => {
+  //   await axios.get(`${adminPathApi}/shop?page=${pageIndex + 1}&per_page=${pageSize}`)
+  //     .then((res) => {
+  //       setData(res.data.data)
+  //       setPageCount(res.data.last_page)
+  //       return res
+  //     })
+  //     .catch((error) => error)
+  // }
+  //   , []);
 
-  var fetchData = react__WEBPACK_IMPORTED_MODULE_1__.useCallback( /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(_ref5) {
-      var pageSize, pageIndex;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              pageSize = _ref5.pageSize, pageIndex = _ref5.pageIndex;
-              _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_5___default().get("".concat(_constants_defaultValues__WEBPACK_IMPORTED_MODULE_6__.adminPathApi, "/shop?page=").concat(pageIndex + 1, "&per_page=").concat(pageSize)).then(function (res) {
-                setData(res.data.data);
-                setPageCount(res.data.last_page);
-                return res;
-              })["catch"](function (error) {
-                return error;
-              });
-
-            case 3:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-
-    return function (_x2) {
-      return _ref6.apply(this, arguments);
-    };
-  }(), []);
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -3086,8 +3067,8 @@ var Allads = function Allads(_ref) {
               children: "\u0622\u06AF\u0647\u06CC \u0647\u0627"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_TableAjax__WEBPACK_IMPORTED_MODULE_4__["default"], {
               columns: cols,
-              data: data,
-              fetchData: fetchData,
+              data: data //  fetchData={fetchData} 
+              ,
               loading: loading,
               pageCount: pageCount
             })]
@@ -26773,6 +26754,84 @@ var Portal = /*#__PURE__*/function (_React$Component) {
 
 Portal.propTypes = propTypes;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Portal);
+
+/***/ }),
+
+/***/ "./node_modules/reactstrap/es/Row.js":
+/*!*******************************************!*\
+  !*** ./node_modules/reactstrap/es/Row.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils */ "./node_modules/reactstrap/es/utils.js");
+
+
+var _excluded = ["className", "cssModule", "noGutters", "tag", "form", "widths"];
+
+
+
+
+var rowColWidths = ['xs', 'sm', 'md', 'lg', 'xl'];
+var rowColsPropType = prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_3___default().number), (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string)]);
+var propTypes = {
+  tag: _utils__WEBPACK_IMPORTED_MODULE_5__.tagPropType,
+  noGutters: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  cssModule: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().object),
+  form: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  xs: rowColsPropType,
+  sm: rowColsPropType,
+  md: rowColsPropType,
+  lg: rowColsPropType,
+  xl: rowColsPropType
+};
+var defaultProps = {
+  tag: 'div',
+  widths: rowColWidths
+};
+
+var Row = function Row(props) {
+  var className = props.className,
+      cssModule = props.cssModule,
+      noGutters = props.noGutters,
+      Tag = props.tag,
+      form = props.form,
+      widths = props.widths,
+      attributes = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+
+  var colClasses = [];
+  widths.forEach(function (colWidth, i) {
+    var colSize = props[colWidth];
+    delete attributes[colWidth];
+
+    if (!colSize) {
+      return;
+    }
+
+    var isXs = !i;
+    colClasses.push(isXs ? "row-cols-" + colSize : "row-cols-" + colWidth + "-" + colSize);
+  });
+  var classes = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.mapToCssModules)(classnames__WEBPACK_IMPORTED_MODULE_4___default()(className, noGutters ? 'no-gutters' : null, form ? 'form-row' : 'row', colClasses), cssModule);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(Tag, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, attributes, {
+    className: classes
+  }));
+};
+
+Row.propTypes = propTypes;
+Row.defaultProps = defaultProps;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Row);
 
 /***/ }),
 

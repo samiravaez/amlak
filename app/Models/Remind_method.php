@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Remind_method extends Model
@@ -11,6 +11,9 @@ class Remind_method extends Model
     use HasFactory;
     use RevisionableTrait;
 
+    protected $attributes = [
+        'trash' => '0'
+    ];
     protected $fillable = ['name'];
 
 
@@ -24,5 +27,9 @@ class Remind_method extends Model
         return $this->morphedByMany(Activity::class, 'remindable')->withTimestamps();
     }
 
+    public function timetables()
+    {
+        return $this->morphedByMany(Timetable::class, 'remindable')->withTimestamps();
+    }
 
 }

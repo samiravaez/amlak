@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\API;
 
 use App\Classes\OptionTree;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Models\Admin_log;
 use App\Models\Bakhsh;
 use App\Models\Mantaghe;
 use App\Models\Ostan;
@@ -12,6 +13,7 @@ use App\Models\Postmeta;
 use App\Models\Shahrestan;
 use App\Models\Term;
 use App\Models\Termmeta;
+use App\Models\Timetable;
 use App\Models\User;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
@@ -904,6 +906,9 @@ class AddsController extends PostsController
             } else {
                 static::reset_confirm($post_id);
             }
+            Admin_log::createAdminLog(Auth::id(), 2, 'Post', $post_id, $postItem,
+                $updateResult, 'the post is updated successfully!');
+
             $result = ['status' => true, 'message' => self::$success_edit_post];
         } else {
             $result = ['status' => false, 'message' => self::$failure_edit_post];
@@ -1495,10 +1500,13 @@ class AddsController extends PostsController
         return false;
     }
 
-    public function delete(Request $request, $post_id)
+    public function delete($post_id)
     {
+        $add = Timetable::findOrFail($post_id);
         if (static::delete_adds($post_id)) {
             $result = ['status' => true, 'message' => static::$success_delete_post];
+            Admin_log::createAdminLog(Auth::id(), 3, 'Post', $post_id, $add,
+                null, 'the post is deleted successfully!');
         } else {
             $result = ['status' => false, 'message' => 'عملیات حذف آگهی ناموفق بود.'];
         }

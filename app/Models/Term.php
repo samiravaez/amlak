@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Http\Controllers\Admin\LandTypeController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Term extends Model

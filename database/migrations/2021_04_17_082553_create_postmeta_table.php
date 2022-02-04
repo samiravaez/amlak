@@ -18,6 +18,8 @@ class CreatePostmetaTable extends Migration
             $table->integer('post_id')->index('post_id');
             $table->string('meta_key');
             $table->text('meta_value')->nullable();
+
+            $table->foreign('post_id', 'postmeta_ibfk_1')->references('postId')->on('posts')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
 

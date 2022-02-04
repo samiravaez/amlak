@@ -4,7 +4,7 @@ import React from "react";
 import { FormGroup, Label } from "reactstrap";
 import Select from "react-select";
 
-const CollapsForm = ({setFieldValue}) => {
+const CollapsForm = ({setFieldValue,values}) => {
     return (
         <>
             <div class="card-body">
@@ -32,15 +32,17 @@ const CollapsForm = ({setFieldValue}) => {
                         <Select
                             id="shadow"
                             className="form-control"
-                           
-                            // value={values.dutyStatus}
-                            onChange={(e)=> setFieldValue('dutyStatus',e.value)}
+
+                            // value={values.status}
+                            onChange={(e)=> setFieldValue('status',e.value)}
+
                             options={[
                                 { value: 0, label: " باز" },
                                 { value: 1, label: "در حال انجام  " },
                                 { value: 2, label: "انجام شده" },
                                 { value: 3, label: "لغو" },
                             ]}
+                            value={values.status}
                             // onChange={(e) =>
                             //     setFieldValue("company_type", e.value)
                             // }
@@ -48,7 +50,7 @@ const CollapsForm = ({setFieldValue}) => {
                         {/* {errors.company_type && touched.company_type && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.company_type}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                     </FormGroup>
                 </div>
@@ -68,6 +70,7 @@ const CollapsForm = ({setFieldValue}) => {
                                 { value: 2, label: "بالا" },
                                 { value: 3, label: "متوسط" },
                             ]}
+                            value={values.priority}
                             // onChange={(e) =>
                             //     setFieldValue("company_type", e.value)
                             // }
@@ -75,7 +78,7 @@ const CollapsForm = ({setFieldValue}) => {
                         {/* {errors.company_type && touched.company_type && (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.company_type}
-                                                            </div> 
+                                                            </div>
                                                         )}*/}
                     </FormGroup>
 
@@ -86,7 +89,7 @@ const CollapsForm = ({setFieldValue}) => {
                     <Popover
                         content={
                             <div>
-                                <Field name="taskType" className="w-100 ms-5" />
+                                <Field name="type" className="w-100 ms-5" />
                                 <p>
                                     لطفا تعداد دو کاراکتر یا بیشتر را وارد کنید
                                 </p>
@@ -110,18 +113,20 @@ const CollapsForm = ({setFieldValue}) => {
                         className="form-control"
                         type="number"
                         name={"cost"}
+                        value={values.cost}
                     />
                 </div>
 
                 <div className="col">
-                    <label htmlFor="activityWeight" className="">
+                    <label htmlFor="weight" className="">
                         وزن فعالیت :
                     </label>
                     <Field
                         id="shadow"
                         className="form-control"
                         type="number"
-                        name={"activityWeight"}
+                        name={"weight"}
+                        value={values.weight}
                     />
                 </div>
             </div>
@@ -134,9 +139,9 @@ const CollapsForm = ({setFieldValue}) => {
                     id="shadow"
                     className="form-control w-25"
                     type="number"
-                    name="day"
+                    name="days"
                 />
-                <label htmlFor="day" className="">
+                <label htmlFor="days" className="">
                     (روز)
                 </label>
 

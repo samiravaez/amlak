@@ -19,11 +19,13 @@ class AddressSeeder extends Seeder
                 'address' => 'شهناز',
                 'addressable_id' => 1,
                 'addressable_type' => 'App\Models\Entity',
+                'trash' => 0
             ],
             [
                 'address' => 'مرزداران',
                 'addressable_id' => 1,
                 'addressable_type' => 'App\Models\Customer',
+                'trash' => 0
             ],
         ]);
     }

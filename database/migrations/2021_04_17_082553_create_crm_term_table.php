@@ -17,6 +17,10 @@ class CreateCrmTermTable extends Migration
             $table->integer('id', true);
             $table->integer('crm_id')->index('crm_id');
             $table->integer('term_term_id')->index('term_term_id');
+
+            $table->foreign('crm_id', 'crm_term_ibfk_1')->references('id')->on('crm')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('term_term_id', 'crm_term_ibfk_2')->references('term_id')->on('terms')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+
         });
     }
 

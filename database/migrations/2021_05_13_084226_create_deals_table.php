@@ -26,6 +26,7 @@ class CreateDealsTable extends Migration
             $table->integer('price_method')->nullable(); //0=cash 1=cheque
             $table->integer('rent_method')->nullable(); //0=cash 1=cheque
             $table->integer('prepayment_method')->nullable(); //0=cash 1=cheque
+            $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable(); //end_of_contract
             $table->text('description')->nullable();
             $table->integer('trash')->default(0);

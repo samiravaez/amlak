@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use App\Classes\Region;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -15,6 +15,7 @@ class CRM extends Model
     use RevisionableTrait;
     protected $table='crm';
     protected $primaryKey='id';
+
 
     protected $guarded=array();
 

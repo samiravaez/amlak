@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class Address extends Model
@@ -12,6 +12,9 @@ class Address extends Model
     use RevisionableTrait;
 
     protected $guarded = [''];
+    protected $attributes = [
+        'trash' => '0'
+    ];
     public function addressable()
     {
         return $this->morphTo();

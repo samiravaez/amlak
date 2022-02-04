@@ -11,6 +11,9 @@ import CollapsForm from "./CollapseForm";
 import Reminder from './Reminder';
 import BtnCustom from "../../../../../../../components/UI/BtnCustom";
 import BtnOutLine from "../../../../../../../components/UI/BtnOutLine";
+import {convertNumbers} from "../../../../../../../helpers/convertNumbers";
+import {addMeeting} from "../../../../../../../services/businessServices";
+import NotificationManager from "../../../../../../../components/common/react-notifications/NotificationManager";
 
 const MeetingModal = () => {
     const [loading, setLoading] = useState(false);
@@ -22,7 +25,7 @@ const MeetingModal = () => {
 
 
  const handleOk = () => {
-    setLoading(true) 
+    setLoading(true)
     setTimeout(() => {
         setLoading(false);
         setVisible(false);
@@ -36,9 +39,17 @@ const MeetingModal = () => {
   const onChangeReminder = (e) => {
     setReminderBool(e.target.checked);
 };
-const handleSub = async (value) => {
-    console.log(value);
-};
+
+    const handleSub = async (values) => {
+        addMeeting(values).then((response) => {
+            if (response.status == true) {
+                NotificationManager.success(response.data.message);
+            } else {
+                NotificationManager.error(response.data.message);
+            }
+        })
+    }
+
     return (
         <>
           <Button type="text" onClick={showModal}>
@@ -53,23 +64,28 @@ const handleSub = async (value) => {
             width={1300}
             footer={<div></div>}
           >
-         
+
 
          <div>
                     <h1>My Form</h1>
                     <Formik
                         initialValues={{
-                            subject: "",
+                            topic: "",
                             description: "",
-                            meetingPlace: "",
-                            participantsContributors: "",
+                            location: "",
+                            participants: "",
                             reminder: reminderBool,
-                            timeToDo: "",
-                            endTime: "",
-                            sessionStatus: "",
+                            reminder_time: "",
+                            start_time: "",
+                            end_time: "",
+                            status: "",
                             priority: "",
-                            expert: "",
-                            addToCalendar: ""
+                            creator_id: "",
+                            progress_rate: "",
+                            cost: "",
+                            weight: "",
+                            hours: "",
+                            minutes: ""
                         }}
                         onSubmit={handleSub}
                     >
@@ -89,12 +105,13 @@ const handleSub = async (value) => {
                                         id="shadow"
                                         className="form-control w-75"
                                         type="text"
-                                        name= "subject"
+                                        name= "topic"
                                         required="required"
+                                        value={values.topic}
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -119,12 +136,13 @@ const handleSub = async (value) => {
                                         id="shadow"
                                         className="form-control w-75"
                                         type="text"
-                                        name="meetingPlace"
+                                        name="location"
                                         required="required"
+                                        value={values.location}
                                     />
                                     {/* {errors.mobile_unique && touched.mobile_unique && (
                                                             <div className="invalid-feedback d-block">
-                                                               {errors.mobile_unique} 
+                                                               {errors.mobile_unique}
                                                             </div>
                                                         )} */}
                                 </FormGroup>
@@ -139,24 +157,24 @@ const handleSub = async (value) => {
             <Popover
                 content={
                     <div>
-                
+
                     <Field
-                        name="participantsContributors"
+                        name="participants"
                         className="w-100 ms-5"
                     />
                <p>
                   لطفا تعداد دو کاراکتر یا بیشتر را وارد کنید
                </p>
-                </div>  
-                  
+                </div>
+
                 }
                 title="Title"
                 trigger="click"
             >
                 <Button className="w-25">
-                   جستو جو ... 
+                   جستو جو ...
                 </Button>
-            </Popover> 
+            </Popover>
 
 
             </div>
@@ -164,18 +182,18 @@ const handleSub = async (value) => {
                                 <div className=" row">
                                     <p>زمان انجام</p>
                                     <DatePicker
-                                        format="MM/DD/YYYY HH:mm:ss"
+                                        format="YYYY/MM/DD HH:mm:ss"
                                         plugins={[
                                             <TimePicker position="bottom" />,
                                         ]}
                                         calendar={persian}
                                         locale={persian_fa}
                                         calendarPosition="bottom-right"
-                                        value={values.timeToDo}
+                                        value={values.start_time}
                                         onChange={(e) =>
                                             setFieldValue(
-                                                "timeToDo",
-                                                e.format()
+                                                "start_time",
+                                                convertNumbers(e.format())
                                             )
                                         }
                                     />
@@ -183,29 +201,31 @@ const handleSub = async (value) => {
                                 <div className=" row">
                                     <p>زمان پایان</p>
                                     <DatePicker
-                                        format="MM/DD/YYYY HH:mm:ss"
+                                        format="YYYY/MM/DD HH:mm:ss"
                                         plugins={[
                                             <TimePicker position="bottom" />,
                                         ]}
                                         calendar={persian}
                                         locale={persian_fa}
                                         calendarPosition="bottom-right"
-                                        value={values.endTime}
+                                        value={values.end_time}
                                         onChange={(e) =>
-                                            setFieldValue("endTime", e.format())
+                                            setFieldValue("end_time",
+                                                convertNumbers(e.format())
+                                            )
                                         }
                                     />
                                 </div>
-                                
-                                   
+
+
                                 <div>
                     <Checkbox onChange={onChangeReminder}>
                         {" "}
                         افزودن یادآوری{" "}
                     </Checkbox>
                 </div>
-                {reminderBool && <Reminder />}
-                                   
+                {reminderBool && <Reminder values={values} setFieldValue={setFieldValue}/>}
+
 
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
@@ -231,7 +251,7 @@ const handleSub = async (value) => {
                                             aria-labelledby="headingOne"
                                             data-parent="#accordionExample"
                                         >
-                                            <CollapsForm setFieldValue={setFieldValue}/>
+                                            <CollapsForm setFieldValue={setFieldValue} values={values}/>
                                         </div>
                                     </div>
                                 </div>
@@ -249,12 +269,11 @@ const handleSub = async (value) => {
         </>
       );
 }
- 
+
 export default MeetingModal;
 
 
 
 
-  
 
- 
+
