@@ -254,135 +254,64 @@ const Home = () => {
           <span />
         </a>
         <ul className="navbar-nav">
-          <li className="nav-item">
+            <li className="nav-item text-center">
+                <a
+                    className="btn btn-outline-primary btn-sm mobile-menu-cta"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={adminRoot}
+                >
+                    عضویت/ورود
+                </a>
+            </li>
+
+            <li className="nav-item">
             <a
               className="c-pointer"
-              href="#scroll"
-              onClick={(event) => scrollTo(event, 'features')}
+              href={adminRoot}
+              // onClick={(event) => scrollTo(event, 'features')}
             >
-              FEATURES
+              پنل کارگزاران
             </a>
           </li>
-          <li className="nav-item">
-            <a
-              className="c-pointer"
-              href="#scroll"
-              onClick={(event) => scrollTo(event, 'layouts')}
-            >
-              LAYOUTS
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="c-pointer"
-              href="#scroll"
-              onClick={(event) => scrollTo(event, 'components')}
-            >
-              COMPONENTS
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="c-pointer"
-              href="#scroll"
-              onClick={(event) => scrollTo(event, 'apps')}
-            >
-              APPS
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="c-pointer"
-              href="#scroll"
-              onClick={(event) => scrollTo(event, 'themes')}
-            >
-              THEMES
-            </a>
-          </li>
-          <li className="nav-item">
-            <div className="separator" />
-          </li>
-          <li className="nav-item text-center">
-            <a
-              className="btn btn-outline-primary btn-sm mobile-menu-cta"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={buyUrl}
-            >
-              BUY
-            </a>
-          </li>
+
         </ul>
       </div>
 
       <div className="main-container">
-        <Headroom className="landing-page-nav">
-          <nav>
-            <div className="container d-flex align-items-center justify-content-between">
+        <Headroom className="landing-page-nav pull-right">
+          <Nav className="ml-auto pull-right" >
+            <div className="container d-flex align-items-right justify-content-between" >
               <a
-                className="navbar-logo pull-left c-pointer"
+                className="navbar-logo pull-right c-pointer"
                 href="#scroll"
                 onClick={(event) => scrollTo(event, 'home')}
               >
                 <span className="white" />
                 <span className="dark" />
               </a>
-              <ul className="navbar-nav d-none d-lg-flex flex-row">
-                <li className="nav-item">
+              <ul className="navbar-nav d-none d-lg-flex flex-row pull-right">
+                  <li className="nav-item pl-4 pull-right">
+                      <a
+                          className="btn btn-outline-semi-light btn-sm pr-4 pl-4 pull-right"
+                          // target="_blank"
+                          // rel="noopener noreferrer"
+                          href={adminRoot}
+                      >
+                          عضویت/ورود
+                      </a>
+                  </li>
+
+                  <li className="nav-item">
                   <a
                     className="c-pointer"
-                    href="#scroll"
-                    onClick={(event) => scrollTo(event, 'features')}
+                    href={adminRoot}
+                    // onClick={(event) => scrollTo(event, 'features')}
                   >
-                    FEATURES
+                    پنل کارگزاران
                   </a>
                 </li>
-                <li className="nav-item">
-                  <a
-                    className="c-pointer"
-                    href="#scroll"
-                    onClick={(event) => scrollTo(event, 'layouts')}
-                  >
-                    LAYOUTS
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="c-pointer"
-                    href="#scroll"
-                    onClick={(event) => scrollTo(event, 'components')}
-                  >
-                    COMPONENTS
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="c-pointer"
-                    href="#scroll"
-                    onClick={(event) => scrollTo(event, 'apps')}
-                  >
-                    APPS
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="c-pointer"
-                    href="#scroll"
-                    onClick={(event) => scrollTo(event, 'themes')}
-                  >
-                    THEMES
-                  </a>
-                </li>
-                <li className="nav-item pl-4">
-                  <a
-                    className="btn btn-outline-semi-light btn-sm pr-4 pl-4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={buyUrl}
-                  >
-                    BUY
-                  </a>
-                </li>
+
               </ul>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
               <span
@@ -395,37 +324,35 @@ const Home = () => {
                 <i className="simple-icon-menu" />
               </span>
             </div>
-          </nav>
+          </Nav>
         </Headroom>
         <div className="content-container" id="home">
           <div className="section home" ref={refSectionHome}>
             <div className="container">
               <div className="row home-row" ref={refRowHome}>
-                <div className="col-12 d-block d-md-none">
-                  <NavLink to="/">
-                    <img
-                      alt="mobile hero"
-                      className="mobile-hero"
-                      src="/assets/img/landing-page/home-hero-mobile.png"
-                    />
-                  </NavLink>
-                </div>
+                {/*<div className="col-12 d-block d-md-none">*/}
+                {/*  <NavLink to="/">*/}
+                {/*    <img*/}
+                {/*      alt="mobile hero"*/}
+                {/*      className="mobile-hero"*/}
+                {/*      src="/assets/img/landing-page/home-hero-mobile.png"*/}
+                {/*    />*/}
+                {/*  </NavLink>*/}
+                {/*</div>*/}
 
                 <div className="col-12 col-xl-4 col-lg-5 col-md-6">
                   <div className="home-text">
                     <div className="display-1">
-                      MAGIC IS IN <br />
-                      THE DETAILS
+                      املاک
+                    اویم وار
                     </div>
                     <p className="white mb-5">
-                      Gogo is the combination of good design, quality code and
-                      attention for details.
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع
                       <br />
                       <br />
-                      We used same design language for components, layouts, apps
-                      and other parts of the template. <br />
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد،
                       <br />
-                      Hope you enjoy it!
+                     ما با شما هستیم تا صاحبخانه شوید!
                     </p>
                     {/* eslint-disable-next-line react/jsx-no-target-blank */}
                     <a
@@ -433,19 +360,19 @@ const Home = () => {
                       href={adminRoot}
                       target="_blank"
                     >
-                      VIEW NOW <i className="simple-icon-arrow-right" />
+                      پنل کارگزاران <i className="simple-icon-arrow-right" />
                     </a>
                   </div>
                 </div>
-                <div className="col-12 col-xl-7 offset-xl-1 col-lg-7 col-md-6  d-none d-md-block">
-                  {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                  <a href={adminRoot} target="_blank">
-                    <img
-                      alt="hero"
-                      src="/assets/img/landing-page/home-hero.png"
-                    />
-                  </a>
-                </div>
+                {/*<div className="col-12 col-xl-7 offset-xl-1 col-lg-7 col-md-6  d-none d-md-block">*/}
+                {/*  /!* eslint-disable-next-line react/jsx-no-target-blank *!/*/}
+                {/*  <a href={adminRoot} target="_blank">*/}
+                {/*    <img*/}
+                {/*      alt="hero"*/}
+                {/*      src="/assets/img/landing-page/home-hero.png"*/}
+                {/*    />*/}
+                {/*  </a>*/}
+                {/*</div>*/}
               </div>
 
               <div className="row">

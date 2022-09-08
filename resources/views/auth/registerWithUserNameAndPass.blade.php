@@ -34,7 +34,7 @@
     <!-- ./ logo -->
     <h5>ثبت نام</h5>
     <!-- form -->
-    <form action="" method="post">
+    <form action="{{route('user.register')}}" method="post">
         @include('layouts.messages')
         @csrf
         <div class="form-group">
@@ -49,7 +49,7 @@
         <button type="submit" class="btn btn-primary btn-block">ثبت نام</button>
         <hr>
         <p class="text-muted">قبلاً ثبت نام کرده اید؟</p>
-        <a href="{{route('login')}}" class="btn btn-outline-light btn-sm">وارد حساب کاربری خود شوید!</a>
+        <a href="{{route('user.login')}}" class="btn btn-outline-light btn-sm">وارد حساب کاربری خود شوید!</a>
     </form>
     <!-- ./ form -->
 </div>

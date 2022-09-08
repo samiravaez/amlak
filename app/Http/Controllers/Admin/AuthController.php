@@ -18,7 +18,7 @@ class AuthController extends Controller
         $remember=$request->has('remember');
         if(Auth::attempt(['email'=>$request->input('email'),'password'=>$request->input('password')],$remember)) {
             $user = Auth::user();
-            return redirect()->route('admin.dashboard')->with('success',$user->name. ' عزیز، خوش آمدی');
+            return redirect()->route('user.panel')->with('success',$user->name. ' عزیز، خوش آمدی');
         }else{
             return redirect()->back()->with('error','اطلاعات ورود نامعتبر است!!');
         }
@@ -30,15 +30,15 @@ class AuthController extends Controller
 
     public function doRegisterWithUserNameAndPass(Request $request){
         $newUserDate=[
-            'name'=>request()->input('name'),
-            'email'=>request()->input('email'),
-            'password'=>request()->input('password')
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$request->password,
         ];
 
         $newUser=User::create($newUserDate);
 
         if ($newUser && $newUser instanceof User){
-            return redirect('/');
+            return redirect('/tbt-panel');
         }
 
         return redirect()->back();

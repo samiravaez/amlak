@@ -13,12 +13,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/',function(){
+    return view('welcome');
+});
+
 Route::get('/tbt-panel/{path?}',function(){
     return view('welcome');
-})->where('path','.*');
+})->where('path','.*')->middleware('auth')->name('user.panel');
+
 Route::get('/tbt-login/{path?}',function(){
     return view('welcome');
-})->where('path','.*');
+})->where('path','.*')->middleware('auth');
+
+Route::get('/tbt-register', [\App\Http\Controllers\Admin\AuthController::class, 'showRegisterWithUserNameAndPass']);
+Route::post('/tbt-register', [\App\Http\Controllers\Admin\AuthController::class, 'doRegisterWithUserNameAndPass'])->name('user.register');
+Route::post('/tbt-login', [\App\Http\Controllers\Admin\AuthController::class, 'doLoginWithUserNameAndPass'])->name('user.login');
+Route::post('/tbt-logout', [\App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('user.logout');
 
 Route::get('/panel', [\App\Http\Controllers\Admin\AuthController::class, 'showLoginWithUserNameAndPass']);
 Route::post('/panel', [\App\Http\Controllers\Admin\AuthController::class, 'doLoginWithUserNameAndPass'])->name('login');

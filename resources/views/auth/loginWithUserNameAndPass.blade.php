@@ -46,7 +46,7 @@
     @endif
     <h5>ورود</h5>
     <!-- form -->
-    <form action="" method="post">
+    <form action="{{route('user.login')}}" method="post">
         @include('layouts.messages')
         @csrf
         <div class="form-group">
@@ -66,7 +66,7 @@
         <button type="submit" class="btn btn-primary btn-block">ورود</button>
     </form>
     <!-- ./ form -->
-    <div class="login-copyright">طراحی و توسعه CMS توسط <a href="https://www.tabtarh.com" target="_blank">تب طرح</a></div>
+    <div class="login-copyright">طراحی و توسعه CMS توسط <a href="" target="_blank"></a></div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
